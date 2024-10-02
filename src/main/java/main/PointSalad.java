@@ -1,3 +1,5 @@
+package main;
+
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -170,7 +172,7 @@ public class PointSalad {
         ArrayList<Card> deckOnion = new ArrayList<>();
         ArrayList<Card> deckTomato = new ArrayList<>();
 
-        try (InputStream fInputStream = new FileInputStream("src/main/resources/PointSaladManifest.json");
+        try (InputStream fInputStream = new FileInputStream("src/main.main/resources/PointSaladManifest.json");
              Scanner scanner = new Scanner(fInputStream, "UTF-8").useDelimiter("\\A")) {
 
             // Read the entire JSON file into a String
@@ -182,14 +184,14 @@ public class PointSalad {
             // Get the "cards" array from the JSONObject
             JSONArray cardsArray = jsonObject.getJSONArray("cards");
 
-            // Iterate over each card in the array
+            // Iterate over each card.card in the array
             for (int i = 0; i < cardsArray.length(); i++) {
                 JSONObject cardJson = cardsArray.getJSONObject(i);
 
-                // Get the criteria object from the card JSON
+                // Get the criteria object from the card.card JSON
                 JSONObject criteriaObj = cardJson.getJSONObject("criteria");
 
-                // Add each vegetable card to the deck with its corresponding criteria
+                // Add each vegetable card.card to the deck with its corresponding criteria
                 deckPepper.add(new Card(Card.Vegetable.PEPPER, criteriaObj.getString("PEPPER")));
                 deckLettuce.add(new Card(Card.Vegetable.LETTUCE, criteriaObj.getString("LETTUCE")));
                 deckCarrot.add(new Card(Card.Vegetable.CARROT, criteriaObj.getString("CARROT")));
@@ -434,7 +436,7 @@ public class PointSalad {
     }
 
     public void client(String ipAddress) throws Exception {
-        //Connect to server
+        //Connect to network.server
         Socket aSocket = new Socket(ipAddress, 2048);
         ObjectOutputStream outToServer = new ObjectOutputStream(aSocket.getOutputStream());
         ObjectInputStream inFromServer = new ObjectInputStream(aSocket.getInputStream());
@@ -450,7 +452,7 @@ public class PointSalad {
     }
 
     public void server(int numberPlayers, int numberOfBots) throws Exception {
-        players.add(new Player(0, false, null, null, null)); //add this instance as a player
+        players.add(new Player(0, false, null, null, null)); //add this instance as a player.player
         //Open for connections if there are online players
         for(int i=0; i<numberOfBots; i++) {
             players.add(new Player(i+1, true, null, null, null)); //add a bot
@@ -461,9 +463,9 @@ public class PointSalad {
             Socket connectionSocket = aSocket.accept();
             ObjectInputStream inFromClient = new ObjectInputStream(connectionSocket.getInputStream());
             ObjectOutputStream outToClient = new ObjectOutputStream(connectionSocket.getOutputStream());
-            players.add(new Player(i, false, connectionSocket, inFromClient, outToClient)); //add an online client
-            System.out.println("Connected to player " + i);
-            outToClient.writeObject("You connected to the server as player " + i + "\n");
+            players.add(new Player(i, false, connectionSocket, inFromClient, outToClient)); //add an online network.client
+            System.out.println("Connected to player.player " + i);
+            outToClient.writeObject("You connected to the network.server as player.player " + i + "\n");
         }
     }
 
@@ -524,7 +526,7 @@ public class PointSalad {
             e.printStackTrace();
         }
 
-        // Set random starting player
+        // Set random starting player.player
         int currentPlayer = (int) (Math.random() * (players.size()));
         boolean keepPlaying = true;
 
@@ -549,16 +551,16 @@ public class PointSalad {
                 thisPlayer.sendMessage(printMarket());
                 boolean validChoice = false;
                 while(!validChoice) {
-                    thisPlayer.sendMessage("\n\nTake either one point card (Syntax example: 2) or up to two vegetable cards (Syntax example: CF).\n");
+                    thisPlayer.sendMessage("\n\nTake either one point card.card (Syntax example: 2) or up to two vegetable cards (Syntax example: CF).\n");
                     String pileChoice = thisPlayer.readMessage();
                     if(pileChoice.matches("\\d")) {
                         int pileIndex = Integer.parseInt(pileChoice);
                         if(piles.get(pileIndex).getPointCard() == null) {
-                            thisPlayer.sendMessage("\nThis pile is empty. Please choose another pile.\n");
+                            thisPlayer.sendMessage("\nThis card.pile is empty. Please choose another card.pile.\n");
                             continue;
                         } else {
                             thisPlayer.hand.add(piles.get(pileIndex).buyPointCard());
-                            thisPlayer.sendMessage("\nYou took a card from pile " + (pileIndex) + " and added it to your hand.\n");
+                            thisPlayer.sendMessage("\nYou took a card.card from card.pile " + (pileIndex) + " and added it to your hand.\n");
                             validChoice = true;
                         }
                     } else {
@@ -573,7 +575,7 @@ public class PointSalad {
                             int pileIndex = (choice == 0 || choice == 3) ? 0 : (choice == 1 || choice == 4) ? 1 : (choice == 2 || choice == 5) ? 2:-1;
                             int veggieIndex = (choice == 0 || choice == 1 || choice == 2) ? 0 : (choice == 3 || choice == 4 || choice == 5) ? 1 : -1;
                             if(piles.get(pileIndex).veggieCards[veggieIndex] == null) {
-                                thisPlayer.sendMessage("\nThis veggie is empty. Please choose another pile.\n");
+                                thisPlayer.sendMessage("\nThis veggie is empty. Please choose another card.pile.\n");
                                 validChoice = false;
                                 break;
                             } else {
@@ -583,7 +585,7 @@ public class PointSalad {
                                 } else {
                                     thisPlayer.hand.add(piles.get(pileIndex).buyVeggieCard(veggieIndex));
                                     takenVeggies++;
-                                    //thisPlayer.sendMessage("\nYou took a card from pile " + (pileIndex) + " and added it to your hand.\n");
+                                    //thisPlayer.sendMessage("\nYou took a card.card from card.pile " + (pileIndex) + " and added it to your hand.\n");
                                     validChoice = true;
                                 }
                             }
@@ -591,7 +593,7 @@ public class PointSalad {
 
                     }
                 }
-                //Check if the player has any criteria cards in their hand
+                //Check if the player.player has any criteria cards in their hand
                 boolean criteriaCardInHand = false;
                 for(Card card : thisPlayer.hand) {
                     if(card.criteriaSideUp) {
@@ -600,8 +602,8 @@ public class PointSalad {
                     }
                 }
                 if(criteriaCardInHand) {
-                    //Give the player an option to turn a criteria card into a veggie card
-                    thisPlayer.sendMessage("\n"+displayHand(thisPlayer.hand)+"\nWould you like to turn a criteria card into a veggie card? (Syntax example: n or 2)");
+                    //Give the player.player an option to turn a criteria card.card into a veggie card.card
+                    thisPlayer.sendMessage("\n"+displayHand(thisPlayer.hand)+"\nWould you like to turn a criteria card.card into a veggie card.card? (Syntax example: n or 2)");
                     String choice = thisPlayer.readMessage();
                     if(choice.matches("\\d")) {
                         int cardIndex = Integer.parseInt(choice);
@@ -613,15 +615,15 @@ public class PointSalad {
 
             } else {
                 // Bot logic
-                // The Bot will randomly decide to take either one point card or two veggie cards
-                // For point card the Bot will always take the point card with the highest score
+                // The Bot will randomly decide to take either one point card.card or two veggie cards
+                // For point card.card the Bot will always take the point card.card with the highest score
                 // If there are two point cards with the same score, the bot will take the first one
                 // For Veggie cards the Bot will pick the first one or two available veggies
                 boolean emptyPiles = false;
                 // Random choice:
                 int choice = (int) (Math.random() * 2);
                 if(choice == 0) {
-                    // Take a point card
+                    // Take a point card.card
                     int highestPointCardIndex = 0;
                     int highestPointCardScore = 0;
                     for(int i = 0; i < piles.size(); i++) {
@@ -658,7 +660,7 @@ public class PointSalad {
                         }
                     }
                     if(cardsPicked == 0 && !emptyPiles) {
-                        // Take a point card instead of veggies if there are no veggies left
+                        // Take a point card.card instead of veggies if there are no veggies left
                         int highestPointCardIndex = 0;
                         int highestPointCardScore = 0;
                         for(int i = 0; i < piles.size(); i++) {
@@ -708,7 +710,7 @@ public class PointSalad {
             if(player.playerID == playerID) {
                 player.sendMessage("\nCongratulations! You are the winner with a score of " + maxScore);
             } else {
-                player.sendMessage("\nThe winner is player " + playerID + " with a score of " + maxScore);
+                player.sendMessage("\nThe winner is player.player " + playerID + " with a score of " + maxScore);
             }
         }
     }
