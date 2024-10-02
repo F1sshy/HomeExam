@@ -20,7 +20,7 @@ public class PointSalad {
     public ArrayList<Pile> piles = new ArrayList<>();
     public ServerSocket aSocket;
 
-    class Player {
+    public class Player {
         public int playerID;
         public boolean online;
         public boolean isBot;

@@ -6,11 +6,14 @@ import java.util.ArrayList;
 
 public class pile {
 
-    public class Pile {
+    public static ArrayList<PointSalad.Pile> piles = new ArrayList<>();
+
+
+
         public ArrayList<PointSalad.Card> cards = new ArrayList<PointSalad.Card>();
         public PointSalad.Card[] veggieCards = new PointSalad.Card[2];
 
-        public Pile(ArrayList<PointSalad.Card> cards) {
+        public pile(ArrayList<PointSalad.Card> cards) {
             this.cards = cards;
             this.veggieCards[0] = cards.remove(0);
             this.veggieCards[1] = cards.remove(0);
@@ -87,4 +90,4 @@ public class pile {
             return cards.isEmpty() && veggieCards[0] == null && veggieCards[1] == null;
         }
     }
-}
+

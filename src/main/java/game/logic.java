@@ -1,5 +1,13 @@
 package game;
 
+import card.pile;
+import card.card;
+import main.PointSalad;
+import network.server;
+import network.client;
+import player.player;
+import player.bot;
+
 import main.PointSalad;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +20,9 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class logic {
+
+    public ArrayList<PointSalad.Player> players = new ArrayList<>();
+
 
     public void setPiles(int nrPlayers) {
         ArrayList<PointSalad.Card> deckPepper = new ArrayList<>();
@@ -87,9 +98,9 @@ public class logic {
                 pile3.add(deck.get(i));
             }
         }
-        piles.add(new PointSalad.Pile(pile1));
-        piles.add(new PointSalad.Pile(pile2));
-        piles.add(new PointSalad.Pile(pile3));
+        pile.piles.add(new pile(pile1));
+        pile.piles.add(new pile(pile2));
+        pile.piles.add(new pile(pile3));
     }
 
     public int calculateScore(ArrayList<PointSalad.Card> hand, PointSalad.Player thisPlayer) {

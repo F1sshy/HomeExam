@@ -10,6 +10,8 @@ import main.PointSalad;
 
 public class server {
 
+    public ServerSocket aSocket;
+
     public void server(int numberPlayers, int numberOfBots) throws Exception {
         players.add(new PointSalad.Player(0, false, null, null, null)); //add this instance as a player.player
         //Open for connections if there are online players
