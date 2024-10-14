@@ -3,8 +3,15 @@ package main;
 import java.util.Collections;
 import java.util.Scanner;
 
+import card.pile;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import game.engine;
+import game.logic.cardUtils;
+import game.logic.pileSetup;
+import player.player;
+
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,10 +23,26 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class PointSalad {
-    public ArrayList<Player> players = new ArrayList<>();
-    public ArrayList<Pile> piles = new ArrayList<>();
+
+
+    public ArrayList<player> players = new ArrayList<>();
+    public ArrayList<pile> piles = new ArrayList<>();
     public ServerSocket aSocket;
 
+
+    public PointSalad(String[] args) {
+        engine gameEngine = new engine();
+        gameEngine.startGame(args);
+    }
+
+
+}
+
+
+
+
+
+    /*
     public class Player {
         public int playerID;
         public boolean online;
@@ -165,7 +188,7 @@ public class PointSalad {
     }
 
     public void setPiles(int nrPlayers) {
-        ArrayList<Card> deckPepper = new ArrayList<>();
+        ArrayList<Card> plaPepper = new ArrayList<>();
         ArrayList<Card> deckLettuce = new ArrayList<>();
         ArrayList<Card> deckCarrot = new ArrayList<>();
         ArrayList<Card> deckCabbage = new ArrayList<>();
@@ -720,3 +743,5 @@ public class PointSalad {
 
     }
 }
+
+     */
