@@ -1,5 +1,6 @@
 package card;
 
+import interfaces.IPile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class pile {
+public class pile implements IPile {
 
 
     public ArrayList<card> cards = new ArrayList<>();
@@ -23,7 +24,7 @@ public class pile {
         this.veggieCards[0].criteriaSideUp = false;
         this.veggieCards[1].criteriaSideUp = false;
     }
-/*
+
     public card getPointCard() {
         if (cards.isEmpty()) {
             int biggestPileIndex = 0;
@@ -168,5 +169,5 @@ public class pile {
         Collections.shuffle(deck);
     }
 
- */
+
 }
