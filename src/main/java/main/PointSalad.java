@@ -3,15 +3,16 @@ package main;
 import java.util.Collections;
 import java.util.Scanner;
 
+//import card.pile;
 import card.pile;
+import network.Client;
+import network.Server;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import game.engine;
-import game.logic.cardUtils;
-import game.logic.pileSetup;
+import game.Engine;
 import player.player;
-
+import game.logic.pileSetup;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,23 +24,43 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class PointSalad {
-
-
-    public static ArrayList<player> players = new ArrayList<>();
-    public static ArrayList<pile> piles = new ArrayList<>();
-    public static ServerSocket aSocket;
-
+    private ArrayList<player> players = new ArrayList<>();
+    private ArrayList<pile> piles;
 
     public PointSalad(String[] args) {
-        engine gameEngine = new engine();
+        int numberPlayers = 0;
+        int numberOfBots = 0;
+
+        this.piles = piles;
+
+        if (args.length == 0) {
+            System.out.println("Please enter the number of players (1-6): ");
+            Scanner in = new Scanner(System.in);
+            numberPlayers = in.nextInt();
+            System.out.println("Please enter the number of bots (0-5): ");
+            numberOfBots = in.nextInt();
+        } else {
+            if (args[0].matches("\\d+")) {
+                numberPlayers = Integer.parseInt(args[0]);
+                numberOfBots = Integer.parseInt(args[1]);
+            }
+        }
+
+        try {
+            Server server = new Server(players, 2048);
+            server.server(numberPlayers, numberOfBots);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Engine gameEngine = new Engine(players);
         gameEngine.startGame(args);
     }
 
-
+    public static void main(String[] args) {
+        new PointSalad(args);
+    }
 }
-
-
-
 
 
     /*

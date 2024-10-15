@@ -1,55 +1,27 @@
 package game;
 
 import player.player;
-import network.client;
-import network.server;
+import network.Client;
+import network.Server;
 import game.logic.pileSetup;
-import game.logic.cardUtils;
-import card.card;
 import card.pile;
 
-import static main.PointSalad.players;
-import static main.PointSalad.piles;
+
 
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class engine {
-    //private ArrayList<player> players = new ArrayList<>();
-    //private ArrayList<pileSetup> piles = new ArrayList<>();
+public class Engine {
+    private ArrayList<player> players;
+    //private ArrayList<pile> piles;
+
+    public Engine(ArrayList<player> players) {
+        this.players = players;
+        //this.piles = piles;
+    }
 
     public void startGame(String[] args) {
-        int numberPlayers = 0;
-        int numberOfBots = 0;
-
-        if (args.length == 0) {
-            System.out.println("Please enter the number of players (1-6): ");
-            Scanner in = new Scanner(System.in);
-            numberPlayers = in.nextInt();
-            System.out.println("Please enter the number of bots (0-5): ");
-            numberOfBots = in.nextInt();
-        } else {
-            if (args[0].matches("\\d+")) {
-                numberPlayers = Integer.parseInt(args[0]);
-                numberOfBots = Integer.parseInt(args[1]);
-            } else {
-                try {
-                    new client(args[0]);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        pileSetup pileSetupInstance = new pileSetup();
-        pileSetupInstance.setPiles(numberPlayers + numberOfBots);
-
-        try {
-            new server().server(numberPlayers, numberOfBots);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         int currentPlayer = (int) (Math.random() * (players.size()));
         boolean keepPlaying = true;
@@ -85,7 +57,7 @@ public class engine {
         }
         return false;
     }
-
+    
     private void handleHumanPlayerTurn(player thisPlayer) {
         thisPlayer.sendMessage("\n\n****************************************************************\nIt's your turn! Your hand is:\n");
         thisPlayer.sendMessage(cardUtils.displayHand(thisPlayer.getHand()));
@@ -250,5 +222,10 @@ public class engine {
             market.append("Pile ").append(i).append(": ").append(piles.get(i).toString()).append("\n");
         }
         return market.toString();
+
+    
     }
+         
+        
+    
 }

@@ -3,7 +3,7 @@ package game.logic;
 
 import card.card;
 import player.player;
-import static main.PointSalad.players;
+
 
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import static game.logic.cardUtils.countTotalVegetables;
 
 public class scoreCalculator {
 
-    public int calculateScore(ArrayList<card> hand, player thisPlayer, ArrayList<player> player) {
+    public int calculateScore(ArrayList<card> hand, player thisPlayer, ArrayList<player> players) {
         //System.out.println("DEBUG: \n" + displayHand(hand));
         int totalScore = 0;
 

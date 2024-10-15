@@ -3,8 +3,6 @@ package game.logic;
 import main.PointSalad;
 import card.card;
 import java.util.Collections;
-import static main.PointSalad.players;
-
 
 import java.util.ArrayList;
 
@@ -53,3 +51,4 @@ public class logic {
         Collections.shuffle(deck);
     }
 }
+

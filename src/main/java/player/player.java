@@ -16,10 +16,9 @@ public class player {
         public Socket connection;
         public ObjectInputStream inFromClient;
         public ObjectOutputStream outToClient;
-        public ArrayList<String> region = new ArrayList<String>();
+        //public ArrayList<String> region = new ArrayList<String>();
         public ArrayList<card> hand = new ArrayList<card>();
         Scanner in = new Scanner(System.in);
-        public int score = 0;
 
 
 

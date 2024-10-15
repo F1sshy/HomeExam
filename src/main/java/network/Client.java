@@ -5,12 +5,20 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class client {
+public class Client {
+    public Client(String ipAddress, String port){
+        try {
+            run(ipAddress, Integer.parseInt(port));
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            System.exit(404);
+        }
 
+    }
 
-    public void client(String ipAddress) throws Exception {
+    public void run(String ipAddress, int port) throws Exception {
         //Connect to network.server
-        Socket aSocket = new Socket(ipAddress, 2048);
+        Socket aSocket = new Socket(ipAddress, port);
         ObjectOutputStream outToServer = new ObjectOutputStream(aSocket.getOutputStream());
         ObjectInputStream inFromServer = new ObjectInputStream(aSocket.getInputStream());
         String nextMessage = "";

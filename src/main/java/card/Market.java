@@ -1,14 +1,15 @@
 package card;
 
-import card.pile;
-import main.PointSalad;
+import java.util.ArrayList;
 
-import static card.pile.piles;
+public class Market {
 
+    private ArrayList<pile> piles;
 
-public class market {
-
-
+    public Market(ArrayList<pile> piles) {
+        this.piles = piles;
+    }
+/*
     private String printMarket() {
         String pileString = "Point Cards:\t";
         for (int p=0; p<piles.size(); p++) {
@@ -31,5 +32,5 @@ public class market {
         }
         return pileString;
     }
-
+   */
 }

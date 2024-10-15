@@ -12,10 +12,9 @@ import java.util.Scanner;
 
 public class pile {
 
-    public static ArrayList<pile> piles = new ArrayList<>();
 
-    public static ArrayList<card> cards = new ArrayList<>();
-    public static card[] veggieCards = new card[2];
+    public ArrayList<card> cards = new ArrayList<>();
+    public card[] veggieCards = new card[2];
 
     public pile(ArrayList<card> cards) {
         this.cards = cards;
@@ -24,7 +23,7 @@ public class pile {
         this.veggieCards[0].criteriaSideUp = false;
         this.veggieCards[1].criteriaSideUp = false;
     }
-
+/*
     public card getPointCard() {
         if (cards.isEmpty()) {
             int biggestPileIndex = 0;
@@ -168,4 +167,6 @@ public class pile {
     private void shuffleDeck(ArrayList<card> deck) {
         Collections.shuffle(deck);
     }
+
+ */
 }
