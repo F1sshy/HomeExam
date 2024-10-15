@@ -25,9 +25,9 @@ import java.util.ArrayList;
 public class PointSalad {
 
 
-    public ArrayList<player> players = new ArrayList<>();
-    public ArrayList<pile> piles = new ArrayList<>();
-    public ServerSocket aSocket;
+    public static ArrayList<player> players = new ArrayList<>();
+    public static ArrayList<pile> piles = new ArrayList<>();
+    public static ServerSocket aSocket;
 
 
     public PointSalad(String[] args) {

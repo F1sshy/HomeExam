@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+import static card.pile.cards;
+import static card.pile.veggieCards;
+
 public class pileSetup {
 
     public void setPiles(int nrPlayers) {
@@ -89,4 +92,6 @@ public class pileSetup {
         pile.piles.add(new pile(pile2));
         pile.piles.add(new pile(pile3));
     }
+
+
 }

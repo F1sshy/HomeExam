@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class client {
 
+
     public void client(String ipAddress) throws Exception {
         //Connect to network.server
         Socket aSocket = new Socket(ipAddress, 2048);

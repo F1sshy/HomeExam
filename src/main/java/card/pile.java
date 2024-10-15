@@ -14,8 +14,8 @@ public class pile {
 
     public static ArrayList<pile> piles = new ArrayList<>();
 
-    public ArrayList<card> cards = new ArrayList<>();
-    public card[] veggieCards = new card[2];
+    public static ArrayList<card> cards = new ArrayList<>();
+    public static card[] veggieCards = new card[2];
 
     public pile(ArrayList<card> cards) {
         this.cards = cards;
@@ -63,6 +63,10 @@ public class pile {
         return cards.remove(0);
     }
 
+    public boolean isEmpty() {
+        return cards.isEmpty() && veggieCards[0] == null && veggieCards[1] == null;
+    }
+
     public card getVeggieCard(int index) {
         return veggieCards[index];
     }
@@ -91,10 +95,6 @@ public class pile {
         }
 
         return aCard;
-    }
-
-    public boolean isEmpty() {
-        return cards.isEmpty() && veggieCards[0] == null && veggieCards[1] == null;
     }
 
     public void setPiles(int nrPlayers) {

@@ -1,5 +1,7 @@
 package player;
 
+import card.card;
+
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -15,6 +17,7 @@ public class player {
         public ObjectInputStream inFromClient;
         public ObjectOutputStream outToClient;
         public ArrayList<String> region = new ArrayList<String>();
+        public ArrayList<card> hand = new ArrayList<card>();
         Scanner in = new Scanner(System.in);
         public int score = 0;
 
@@ -45,6 +48,14 @@ public class player {
 
     public boolean isBot() {
         return isBot;
+    }
+
+    public ArrayList<card> getHand() {
+        return hand;
+    }
+
+    public void setHand(ArrayList<card> hand) {
+        this.hand = hand;
     }
 }
 

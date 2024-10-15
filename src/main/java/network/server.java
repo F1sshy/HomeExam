@@ -2,6 +2,7 @@ package network;
 
 import player.player;
 import game.engine;
+import main.PointSalad;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,10 +10,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static main.PointSalad.players;
+import static main.PointSalad.aSocket;
+
 public class server {
 
-    public ServerSocket aSocket;
-    private ArrayList<player> players = new ArrayList<>();
+    //public ServerSocket aSocket;
+    //private ArrayList<player> players = new ArrayList<>();
 
     public void server(int numberPlayers, int numberOfBots) throws Exception {
         players.add(new player(0, false, null, null, null)); // add this instance as a player
@@ -33,7 +37,7 @@ public class server {
     }
 
     private void sendToAllPlayers(String message) {
-        for (Player player : players) {
+        for (player player : players) {
             player.sendMessage(message);
         }
     }

@@ -5,13 +5,19 @@ import network.client;
 import network.server;
 import game.logic.pileSetup;
 import game.logic.cardUtils;
+import card.card;
+import card.pile;
+
+import static main.PointSalad.players;
+import static main.PointSalad.piles;
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class engine {
-    private ArrayList<player> players = new ArrayList<>();
-    private ArrayList<pileSetup> piles = new ArrayList<>();
+    //private ArrayList<player> players = new ArrayList<>();
+    //private ArrayList<pileSetup> piles = new ArrayList<>();
 
     public void startGame(String[] args) {
         int numberPlayers = 0;
@@ -72,7 +78,7 @@ public class engine {
     }
 
     private boolean areCardsAvailable() {
-        for (pileSetup p : piles) {
+        for (pile p : piles) {
             if (!p.isEmpty()) {
                 return true;
             }

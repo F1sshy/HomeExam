@@ -1,47 +1,93 @@
 package game.logic;
 
-import main.PointSalad;
+
+import card.card;
+import player.player;
+import static main.PointSalad.players;
+
 
 import java.util.ArrayList;
 
+import static game.logic.cardUtils.countVegetables;
+import static game.logic.cardUtils.countTotalVegetables;
+
 public class scoreCalculator {
 
-    public int calculateScore(ArrayList<PointSalad.Card> hand, PointSalad.Player thisPlayer, ArrayList<PointSalad.Player> players) {
+    public int calculateScore(ArrayList<card> hand, player thisPlayer, ArrayList<player> player) {
+        //System.out.println("DEBUG: \n" + displayHand(hand));
         int totalScore = 0;
 
-        for (PointSalad.Card criteriaCard : hand) {
+        for (card criteriaCard : hand) {
             if (criteriaCard.criteriaSideUp) {
                 String criteria = criteriaCard.criteria;
                 String[] parts = criteria.split(",");
 
-                if (criteria.contains("TOTAL") || criteria.contains("TYPE") || criteria.contains("SET")) {
-                    totalScore += calculateSpecialCriteriaScore(criteria, hand, thisPlayer, players);
-                } else if (criteria.contains("MOST") || criteria.contains("FEWEST")) {
-                    totalScore += calculateMostFewestScore(criteria, hand, thisPlayer, players);
-                } else if (parts.length > 1 || criteria.contains("+") || parts[0].contains("/")) {
-                    totalScore += calculateComplexCriteriaScore(criteria, hand);
+                //ID 18
+                if (criteria.indexOf("TOTAL") >= 0 || criteria.indexOf("TYPE") >= 0 || criteria.indexOf("SET") >= 0) {
+                    if (criteria.indexOf("TOTAL") >= 0) {
+                        int countVeg = countTotalVegetables(hand);
+                        int thisHandCount = countVeg;
+                        for (player p : players) {
+                            if (p.playerID != thisPlayer.playerID) {
+                                int playerVeg = countTotalVegetables(p.hand);
+                                if ((criteria.indexOf("MOST") >= 0) && (playerVeg > countVeg)) {
+                                    countVeg = countTotalVegetables(p.hand);
+                                }
+                                if ((criteria.indexOf("FEWEST") >= 0) && (playerVeg < countVeg)) {
+                                    countVeg = countTotalVegetables(p.hand);
+                                }
+                            }
+                        }
+                        if (countVeg == thisHandCount) {
+                            //int aScore = Integer.parseInt(criteria.substring(criteria.indexOf("=")+1).trim());
+                            //System.out.print("ID18 MOST/FEWEST: "+aScore + " " );
+                            totalScore += Integer.parseInt(criteria.substring(criteria.indexOf("=") + 1).trim());
+                        }
+                    }
+                    if (criteria.indexOf("TYPE") >= 0) {
+                        String[] expr = criteria.split("/");
+                        int addScore = Integer.parseInt(expr[0].trim());
+                        if (expr[1].indexOf("MISSING") >= 0) {
+                            int missing = 0;
+                            for (card.Vegetable vegetable : card.Vegetable.values()) {
+                                if (countVegetables(hand, vegetable) == 0) {
+                                    missing++;
+                                }
+                            }
+                            //int aScore = missing * addScore;
+                            //System.out.print("ID18 TYPE MISSING: "+aScore + " ");
+                            totalScore += missing * addScore;
+                        } else {
+                            int atLeastPerVegType = Integer.parseInt(expr[1].substring(expr[1].indexOf(">=") + 2).trim());
+                            int totalType = 0;
+                            for (card.Vegetable vegetable : card.Vegetable.values()) {
+                                int countVeg = countVegetables(hand, vegetable);
+                                if (countVeg >= atLeastPerVegType) {
+                                    totalType++;
+                                }
+                            }
+                            //int aScore = totalType * addScore;
+                            //System.out.print("ID18 TYPE >=: "+aScore + " ");
+                            totalScore += totalType * addScore;
+                        }
+                    }
+                    if (criteria.indexOf("SET") >= 0) {
+                        int addScore = 12;
+                        for (card.Vegetable vegetable : card.Vegetable.values()) {
+                            int countVeg = countVegetables(hand, vegetable);
+                            if (countVeg == 0) {
+                                addScore = 0;
+                                break;
+                            }
+                        }
+                        //System.out.print("ID18 SET: "+addScore + " ");
+                        totalScore += addScore;
+                    }
                 }
             }
         }
-
         return totalScore;
     }
 
-    private int calculateSpecialCriteriaScore(String criteria, ArrayList<PointSalad.Card> hand, PointSalad.Player thisPlayer, ArrayList<PointSalad.Player> players) {
-        int score = 0;
-        // Implementation for special criteria score calculation
-        return score;
-    }
 
-    private int calculateMostFewestScore(String criteria, ArrayList<PointSalad.Card> hand, PointSalad.Player thisPlayer, ArrayList<PointSalad.Player> players) {
-        int score = 0;
-        // Implementation for most/fewest score calculation
-        return score;
-    }
-
-    private int calculateComplexCriteriaScore(String criteria, ArrayList<PointSalad.Card> hand) {
-        int score = 0;
-        // Implementation for complex criteria score calculation
-        return score;
-    }
 }
