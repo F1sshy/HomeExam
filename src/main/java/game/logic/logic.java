@@ -1,5 +1,5 @@
 package game.logic;
-
+/*
 import main.PointSalad;
 import card.card;
 import java.util.Collections;
@@ -51,4 +51,4 @@ public class logic {
         Collections.shuffle(deck);
     }
 }
-
+*/

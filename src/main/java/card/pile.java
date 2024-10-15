@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class pile implements IPile {
+public abstract class pile implements IPile {
 
-
+    /*
     public ArrayList<card> cards = new ArrayList<>();
     public card[] veggieCards = new card[2];
+
+
+
 
     public pile(ArrayList<card> cards) {
         this.cards = cards;
@@ -169,5 +172,7 @@ public class pile implements IPile {
         Collections.shuffle(deck);
     }
 
-
+*/
 }
+
+

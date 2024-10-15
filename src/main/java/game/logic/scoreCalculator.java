@@ -1,8 +1,8 @@
 package game.logic;
 
-
+/*
 import card.card;
-import player.player;
+import player.Player;
 
 
 
@@ -13,7 +13,7 @@ import static game.logic.cardUtils.countTotalVegetables;
 
 public class scoreCalculator {
 
-    public int calculateScore(ArrayList<card> hand, player thisPlayer, ArrayList<player> players) {
+    public static int calculateScore(ArrayList<card> hand, Player thisPlayer, ArrayList<Player> players) {
         //System.out.println("DEBUG: \n" + displayHand(hand));
         int totalScore = 0;
 
@@ -91,3 +91,5 @@ public class scoreCalculator {
 
 
 }
+
+ */

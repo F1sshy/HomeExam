@@ -5,14 +5,16 @@ import java.util.Scanner;
 
 //import card.pile;
 import card.pile;
+import game.GameEngine;
 import network.Client;
 import network.Server;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import game.Engine;
-import player.player;
+import game.GameEngine;
+import player.Player;
 import game.logic.pileSetup;
+import interfaces.IPlayer;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,7 +26,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class PointSalad {
-    private ArrayList<player> players = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<pile> piles;
 
     public PointSalad(String[] args) {
@@ -53,7 +55,17 @@ public class PointSalad {
             e.printStackTrace();
         }
 
-        Engine gameEngine = new Engine(players);
+        GameEngine gameEngine = new GameEngine(players, piles) {
+            @Override
+            public void startGame(String[] args) {
+
+            }
+
+            @Override
+            public void calculateAndAnnounceScores() {
+
+            }
+        };
         gameEngine.startGame(args);
     }
 
