@@ -48,7 +48,7 @@ public class scoreCalculator {
                         if (expr[1].indexOf("MISSING") >= 0) {
                             int missing = 0;
                             for (card.Vegetable vegetable : card.Vegetable.values()) {
-                                if (CardUtils.countTotalVegetables() == 0) {
+                                if (CardUtils.countTotalVegetables(hand) == 0) {
                                     missing++;
                                 }
                             }

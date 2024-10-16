@@ -1,5 +1,4 @@
 package player;
-import interfaces.IPlayer;
 import java.io.*;
 
 import card.card;

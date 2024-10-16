@@ -1,13 +1,11 @@
 package game;
 
 import game.logic.CardUtils;
-import interfaces.IGameEngine;
-import interfaces.IPlayer;
+import player.IPlayer;
 import player.Player;
-import interfaces.IPile;
+import card.IPile;
 import java.util.ArrayList;
 import game.logic.scoreCalculator;
-import network.Server;
 import game.logic.pileSetup;
 import card.*;
 import display.Display;
@@ -28,7 +26,7 @@ public class GameEngine implements IGameEngine {
     @Override
     public void startGame(String[] args) {
         pileSetup pileSetup = new pileSetup();
-        pileSetup.setPiles(2);
+        pileSetup.setPiles(players.size());
         piles = pileSetup.getPiles();
         market.printMarket(piles);
         Display display = new Display();
@@ -194,22 +192,22 @@ public class GameEngine implements IGameEngine {
             return false;
         }
 
-        private void takeVegetableCards (Player thisPlayer){
-            int cardsPicked = 0;
-            for (IPile pile : piles) {
-                if (pile.getVeggieCard()[0] != null && cardsPicked < 2) {
-                    thisPlayer.getHand().add(pile.buyVeggieCard(0));
-                    cardsPicked++;
-                }
-                if (pile.getVeggieCard()[1] != null && cardsPicked < 2) {
-                    thisPlayer.getHand().add(pile.buyVeggieCard(1));
-                    cardsPicked++;
-                }
-            }
-            if (cardsPicked == 0) {
-                takeBestPointCard(thisPlayer);
-            }
-        }
+//        private void takeVegetableCards (Player thisPlayer){
+//            int cardsPicked = 0;
+//            for (IPile pile : piles) {
+//                if (pile.getVeggieCard()[0] != null && cardsPicked < 2) {
+//                    thisPlayer.getHand().add(pile.buyVeggieCard(0));
+//                    cardsPicked++;
+//                }
+//                if (pile.getVeggieCard()[1] != null && cardsPicked < 2) {
+//                    thisPlayer.getHand().add(pile.buyVeggieCard(1));
+//                    cardsPicked++;
+//                }
+//            }
+//            if (cardsPicked == 0) {
+//                takeBestPointCard(thisPlayer);
+//            }
+//        }
     }
 
 

@@ -1,12 +1,7 @@
 package card;
 
-import interfaces.IPile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import game.logic.pileSetup;
 
 
 import java.util.ArrayList;

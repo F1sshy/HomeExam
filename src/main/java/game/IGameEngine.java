@@ -1,4 +1,4 @@
-package interfaces;
+package game;
 
 public interface IGameEngine {
     void startGame(String[] args);

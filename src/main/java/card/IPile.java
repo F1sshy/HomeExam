@@ -1,6 +1,4 @@
-package interfaces;
-
-import card.card;
+package card;
 
 public interface IPile {
     card getPointCard();
