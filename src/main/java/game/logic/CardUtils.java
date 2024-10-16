@@ -4,9 +4,8 @@ import card.card;
 import card.card.Vegetable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class cardUtils {
+public class CardUtils {
 
 
 
@@ -30,9 +29,6 @@ public class cardUtils {
         return count;
     }
 
-    public static void shuffleDeck(ArrayList<card> deck) {
-        Collections.shuffle(deck);
-    }
 
     public static String displayHand(ArrayList<card> hand) {
         StringBuilder handString = new StringBuilder("Criteria:\t");

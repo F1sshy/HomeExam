@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 
-public class Server {
+public class Server implements IServer {
 
     private ServerSocket aSocket;
     private ArrayList<Player> players;

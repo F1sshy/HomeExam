@@ -1,6 +1,6 @@
 package card;
 
-public class card {
+public class card implements ICard {
     public enum Vegetable {
         PEPPER, LETTUCE, CARROT, CABBAGE, ONION, TOMATO
     }
@@ -22,4 +22,24 @@ public class card {
             return vegetable.toString();
         }
     }
+
+    public boolean getCriteriaSideUp() {
+        return this.criteriaSideUp;
+    }
+
+    public Vegetable getVegetable() {
+        return this.vegetable;
+    }
+
+    @Override
+    public String getCriteria() {
+        // TODO Auto-generated method stub
+        return this.criteria;
+    }
+
+    public void setCriteriaSideUp(boolean value) {
+        this.criteriaSideUp = value;
+    }
 }
+
+

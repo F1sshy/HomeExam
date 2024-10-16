@@ -55,7 +55,7 @@ public class pileSetup {
             e.printStackTrace();
         }
 
-        int cardsPerVeggie = nrPlayers / 2 * 6;
+        int cardsPerVeggie = (int)(((float) nrPlayers / 2) * 6);
         for (int i = 0; i < cardsPerVeggie; i++) {
             deck.add(deckPepper.remove(0));
             deck.add(deckLettuce.remove(0));
@@ -86,15 +86,15 @@ public class pileSetup {
                 pile3.add(deck.get(i));
             }
         }
-        /*
-        pile.piles.add(new pile(pile1));
-        pile.piles.add(new pile(pile2));
-        pile.piles.add(new pile(pile3));
 
+        piles.add(new pile(pile1));
+        piles.add(new pile(pile2));
+        piles.add(new pile(pile3));
 
-        */
     }
 
-
+    public ArrayList<pile> getPiles() {
+        return piles;
+    }
 
 }

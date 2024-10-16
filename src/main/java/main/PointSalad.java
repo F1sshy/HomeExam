@@ -16,13 +16,6 @@ import player.Player;
 import game.logic.pileSetup;
 import interfaces.IPlayer;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 
 public class PointSalad {
@@ -55,23 +48,15 @@ public class PointSalad {
             e.printStackTrace();
         }
 
-        GameEngine gameEngine = new GameEngine(players, piles) {
-            @Override
-            public void startGame(String[] args) {
+        GameEngine gameEngine = new GameEngine(players);
 
-            }
-
-            @Override
-            public void calculateAndAnnounceScores() {
-
-            }
-        };
         gameEngine.startGame(args);
+
+
     }
 
-    public static void main(String[] args) {
-        new PointSalad(args);
-    }
+
+
 }
 
 

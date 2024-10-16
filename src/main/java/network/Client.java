@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class Client implements IClient {
     public Client(String ipAddress, String port){
         try {
             run(ipAddress, Integer.parseInt(port));
