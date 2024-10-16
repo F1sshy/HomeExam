@@ -1,15 +1,13 @@
 package game.logic;
 
-/*
+
 import card.card;
 import player.Player;
 
 
 
 import java.util.ArrayList;
-
-import static game.logic.cardUtils.countVegetables;
-import static game.logic.cardUtils.countTotalVegetables;
+import game.logic.CardUtils;
 
 public class scoreCalculator {
 
@@ -25,16 +23,16 @@ public class scoreCalculator {
                 //ID 18
                 if (criteria.indexOf("TOTAL") >= 0 || criteria.indexOf("TYPE") >= 0 || criteria.indexOf("SET") >= 0) {
                     if (criteria.indexOf("TOTAL") >= 0) {
-                        int countVeg = countTotalVegetables(hand);
+                        int countVeg = CardUtils.countTotalVegetables(hand);
                         int thisHandCount = countVeg;
-                        for (player p : players) {
-                            if (p.playerID != thisPlayer.playerID) {
-                                int playerVeg = countTotalVegetables(p.hand);
+                        for (Player p : players) {
+                            if (p.getPlayerID() != thisPlayer.getPlayerID()) {
+                                int playerVeg = CardUtils.countTotalVegetables(p.getHand());
                                 if ((criteria.indexOf("MOST") >= 0) && (playerVeg > countVeg)) {
-                                    countVeg = countTotalVegetables(p.hand);
+                                    countVeg = CardUtils.countVegetables(p.getHand(), criteriaCard.vegetable);
                                 }
                                 if ((criteria.indexOf("FEWEST") >= 0) && (playerVeg < countVeg)) {
-                                    countVeg = countTotalVegetables(p.hand);
+                                    countVeg = CardUtils.countVegetables(p.getHand(), criteriaCard.vegetable);
                                 }
                             }
                         }
@@ -50,7 +48,7 @@ public class scoreCalculator {
                         if (expr[1].indexOf("MISSING") >= 0) {
                             int missing = 0;
                             for (card.Vegetable vegetable : card.Vegetable.values()) {
-                                if (countVegetables(hand, vegetable) == 0) {
+                                if (CardUtils.countTotalVegetables() == 0) {
                                     missing++;
                                 }
                             }
@@ -61,7 +59,7 @@ public class scoreCalculator {
                             int atLeastPerVegType = Integer.parseInt(expr[1].substring(expr[1].indexOf(">=") + 2).trim());
                             int totalType = 0;
                             for (card.Vegetable vegetable : card.Vegetable.values()) {
-                                int countVeg = countVegetables(hand, vegetable);
+                                int countVeg = CardUtils.countTotalVegetables(hand);
                                 if (countVeg >= atLeastPerVegType) {
                                     totalType++;
                                 }
@@ -74,7 +72,7 @@ public class scoreCalculator {
                     if (criteria.indexOf("SET") >= 0) {
                         int addScore = 12;
                         for (card.Vegetable vegetable : card.Vegetable.values()) {
-                            int countVeg = countVegetables(hand, vegetable);
+                            int countVeg = CardUtils.countTotalVegetables(hand);
                             if (countVeg == 0) {
                                 addScore = 0;
                                 break;
@@ -91,5 +89,3 @@ public class scoreCalculator {
 
 
 }
-
- */

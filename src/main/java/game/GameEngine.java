@@ -6,7 +6,7 @@ import interfaces.IPlayer;
 import player.Player;
 import interfaces.IPile;
 import java.util.ArrayList;
-//import game.logic.scoreCalculator;
+import game.logic.scoreCalculator;
 import network.Server;
 import game.logic.pileSetup;
 import card.*;
@@ -100,7 +100,7 @@ public class GameEngine implements IGameEngine {
             }
         }
         thisPlayer.sendMessage("\nYour turn is completed\n****************************************************************\n\n");
-        //Server.sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n"+Display.displayHand(thisPlayer.getHand())+"\n", players);
+       //Server.sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n"+Display.displayHand(thisPlayer.getHand())+"\n", players);
     }
 
     private boolean processPlayerChoice (Player thisPlayer, String pileChoice){
@@ -144,8 +144,8 @@ public class GameEngine implements IGameEngine {
         public void calculateAndAnnounceScores() {
             int maxScore = 0;
             int playerID = 0;
-            for (IPlayer player : players) {
-                //player.setScore(scoreCalculator.calculateScore(player.getHand(), Player, players));
+            for (Player player : players) {
+                player.setScore(scoreCalculator.calculateScore(player.getHand(), player, players));
                 if (player.getScore() > maxScore) {
                     maxScore = player.getScore();
                     playerID = player.getPlayerID();
@@ -164,7 +164,7 @@ public class GameEngine implements IGameEngine {
             boolean emptyPiles = false;
             int choice = (int) (Math.random() * 2);
             if (choice == 0) {
-                //emptyPiles = !takeBestPointCard(thisPlayer);
+                emptyPiles = !takeBestPointCard(thisPlayer);
             }
             if (choice == 1 || emptyPiles) {
                 //takeVegetableCards(thisPlayer);
@@ -172,44 +172,44 @@ public class GameEngine implements IGameEngine {
             //Server.sendToAllPlayers("Bot " + thisPlayer.getPlayerID() + "'s hand is now: \n" + displayHand(thisPlayer.getHand()) + "\n");
         }
 //
-//        private boolean takeBestPointCard (player thisPlayer){
-//            int highestPointCardIndex = 0;
-//            int highestPointCardScore = 0;
-//            for (int i = 0; i < piles.size(); i++) {
-//                if (piles.get(i).getPointCard() != null) {
-//                    ArrayList<card> tempHand = new ArrayList<>();
-//                    tempHand.addAll(thisPlayer.getHand());
-//                    tempHand.add(piles.get(i).getPointCard());
-//                    int score = cardUtils.calculateScore(tempHand, thisPlayer);
-//                    if (score > highestPointCardScore) {
-//                        highestPointCardScore = score;
-//                        highestPointCardIndex = i;
-//                    }
-//                }
-//            }
-//            if (piles.get(highestPointCardIndex).getPointCard() != null) {
-//                thisPlayer.getHand().add(piles.get(highestPointCardIndex).buyPointCard());
-//                return true;
-//            }
-//            return false;
-//        }
-//
-//        private void takeVegetableCards (player thisPlayer){
-//            int cardsPicked = 0;
-//            for (pileSetup pile : piles) {
-//                if (pile.getVeggieCards()[0] != null && cardsPicked < 2) {
-//                    thisPlayer.getHand().add(pile.buyVeggieCard(0));
-//                    cardsPicked++;
-//                }
-//                if (pile.getVeggieCards()[1] != null && cardsPicked < 2) {
-//                    thisPlayer.getHand().add(pile.buyVeggieCard(1));
-//                    cardsPicked++;
-//                }
-//            }
-//            if (cardsPicked == 0) {
-//                takeBestPointCard(thisPlayer);
-//            }
-//        }
+        private boolean takeBestPointCard (Player thisPlayer){
+            int highestPointCardIndex = 0;
+            int highestPointCardScore = 0;
+            for (int i = 0; i < piles.size(); i++) {
+                if (piles.get(i).getPointCard() != null) {
+                    ArrayList<card> tempHand = new ArrayList<>();
+                    tempHand.addAll(thisPlayer.getHand());
+                    tempHand.add(piles.get(i).getPointCard());
+                    int score = scoreCalculator.calculateScore(tempHand, thisPlayer, players);
+                    if (score > highestPointCardScore) {
+                        highestPointCardScore = score;
+                        highestPointCardIndex = i;
+                    }
+                }
+            }
+            if (piles.get(highestPointCardIndex).getPointCard() != null) {
+                thisPlayer.getHand().add(piles.get(highestPointCardIndex).buyPointCard());
+                return true;
+            }
+            return false;
+        }
+
+        private void takeVegetableCards (Player thisPlayer){
+            int cardsPicked = 0;
+            for (IPile pile : piles) {
+                if (pile.getVeggieCard()[0] != null && cardsPicked < 2) {
+                    thisPlayer.getHand().add(pile.buyVeggieCard(0));
+                    cardsPicked++;
+                }
+                if (pile.getVeggieCard()[1] != null && cardsPicked < 2) {
+                    thisPlayer.getHand().add(pile.buyVeggieCard(1));
+                    cardsPicked++;
+                }
+            }
+            if (cardsPicked == 0) {
+                takeBestPointCard(thisPlayer);
+            }
+        }
     }
 
 
