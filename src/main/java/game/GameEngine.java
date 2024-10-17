@@ -77,7 +77,7 @@ public class GameEngine implements IGameEngine {
             }
             checkAndHandleCriteriaCard(thisPlayer);
             thisPlayer.sendMessage("\nYour turn is completed\n****************************************************************\n\n");
-            server.sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
+            sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
         }
 
     private void checkAndHandleCriteriaCard(Player thisPlayer) {
@@ -99,7 +99,7 @@ public class GameEngine implements IGameEngine {
             }
         }
         thisPlayer.sendMessage("\nYour turn is completed\n****************************************************************\n\n");
-       server.sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n"+Display.displayHand(thisPlayer.getHand())+"\n");
+       sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n"+Display.displayHand(thisPlayer.getHand())+"\n");
     }
 
     private boolean processPlayerChoice (Player thisPlayer, String pileChoice){
@@ -168,9 +168,9 @@ public class GameEngine implements IGameEngine {
             if (choice == 1 || emptyPiles) {
                 takeVegetableCards(thisPlayer);
             }
-            server.sendToAllPlayers("Bot " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
+            sendToAllPlayers("Bot " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
         }
-//
+
         private boolean takeBestPointCard (Player thisPlayer){
             int highestPointCardIndex = 0;
             int highestPointCardScore = 0;
@@ -209,6 +209,13 @@ public class GameEngine implements IGameEngine {
                 takeBestPointCard(thisPlayer);
             }
         }
+
+        public void sendToAllPlayers(String message) {
+            for (Player player : players) {
+                player.sendMessage(message);
+            }
+        }
+
 
     }
 
