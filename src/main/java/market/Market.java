@@ -8,30 +8,35 @@ public class Market implements IMarket {
     private ArrayList<pile> piles;
 
     public Market(ArrayList<pile> piles) {
-        this.piles = piles;
+        this.piles = (piles != null) ? piles : new ArrayList<>();
     }
 
     public void replaceMarket() {
+        if (piles == null) return;
         for (int i = 0; i < piles.size(); i++) {
             pile p = piles.get(i);
-            if (p.isEmpty() || p.areVeggieCardsEmpty()) {
-                card newCard = drawCardFromPile(p);
+            if (p.isEmpty()) {
+                card newCard = drawCardFromLargestPile();
                 if (newCard != null) {
                     p.addCard(newCard);
+                }
+            }
+            if (p.areVeggieCardsEmpty()) {
+                for (int j = 0; j < p.veggieCards.length; j++) {
+                    if (p.veggieCards[j] == null) {
+                        card newVeggieCard = drawCardFromLargestPile();
+                        if (newVeggieCard != null) {
+                            p.veggieCards[j] = newVeggieCard;
+                            p.veggieCards[j].criteriaSideUp = false;
+                        }
+                    }
                 }
             }
         }
     }
 
-    private card drawCardFromPile(pile p) {
-        if (!p.isEmpty()) {
-            return p.removeCard();
-        } else {
-            return drawCardFromLargestPile();
-        }
-    }
-
     private card drawCardFromLargestPile() {
+        if (piles == null) return null;
         int largestPileIndex = -1;
         int largestSize = 0;
 

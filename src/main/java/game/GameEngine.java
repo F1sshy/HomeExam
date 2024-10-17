@@ -31,6 +31,7 @@ public class GameEngine implements IGameEngine {
         ArrayList<pile> piles = pileSetup.getPiles();
         this.market = new Market(piles);
         gameLoop();
+        calculateAndAnnounceScores();
     }
 
     public void gameLoop() {
@@ -61,6 +62,7 @@ public class GameEngine implements IGameEngine {
             market.replaceMarket();
             currentPlayer = (currentPlayer == players.size() - 1) ? 0 : currentPlayer + 1;
         }
+        calculateAndAnnounceScores();
     }
 
     private void handlePlayerTurn(Player thisPlayer) {
@@ -123,8 +125,8 @@ public class GameEngine implements IGameEngine {
         int takenVeggies = 0;
         for (int charIndex = 0; charIndex < pileChoice.length(); charIndex++) {
             int choice = Character.toUpperCase(pileChoice.charAt(charIndex)) - 'A';
-            int pileIndex = choice / 3;
-            int veggieIndex = choice % 3;
+            int pileIndex = choice / 2; // Assuming there are 2 veggie cards per pile
+            int veggieIndex = choice % 2;
             if (pileIndex < 0 || pileIndex >= market.getPiles().size() || veggieIndex < 0 || veggieIndex >= 2) {
                 thisPlayer.sendMessage("\nInvalid vegetable card choice. Please choose another pile.\n");
                 return false;
