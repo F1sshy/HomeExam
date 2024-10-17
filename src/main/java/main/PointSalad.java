@@ -2,8 +2,8 @@ package main;
 
 import java.util.Scanner;
 
-//import card.pile;
-import card.pile;
+//import pile.pile;
+import pile.pile;
 import game.GameEngine;
 import network.Server;
 
@@ -590,11 +590,11 @@ public class PointSalad {
                     if(pileChoice.matches("\\d")) {
                         int pileIndex = Integer.parseInt(pileChoice);
                         if(piles.get(pileIndex).getPointCard() == null) {
-                            thisPlayer.sendMessage("\nThis card.pile is empty. Please choose another card.pile.\n");
+                            thisPlayer.sendMessage("\nThis pile.pile is empty. Please choose another pile.pile.\n");
                             continue;
                         } else {
                             thisPlayer.hand.add(piles.get(pileIndex).buyPointCard());
-                            thisPlayer.sendMessage("\nYou took a card.card from card.pile " + (pileIndex) + " and added it to your hand.\n");
+                            thisPlayer.sendMessage("\nYou took a card.card from pile.pile " + (pileIndex) + " and added it to your hand.\n");
                             validChoice = true;
                         }
                     } else {
@@ -609,7 +609,7 @@ public class PointSalad {
                             int pileIndex = (choice == 0 || choice == 3) ? 0 : (choice == 1 || choice == 4) ? 1 : (choice == 2 || choice == 5) ? 2:-1;
                             int veggieIndex = (choice == 0 || choice == 1 || choice == 2) ? 0 : (choice == 3 || choice == 4 || choice == 5) ? 1 : -1;
                             if(piles.get(pileIndex).veggieCards[veggieIndex] == null) {
-                                thisPlayer.sendMessage("\nThis veggie is empty. Please choose another card.pile.\n");
+                                thisPlayer.sendMessage("\nThis veggie is empty. Please choose another pile.pile.\n");
                                 validChoice = false;
                                 break;
                             } else {
@@ -619,7 +619,7 @@ public class PointSalad {
                                 } else {
                                     thisPlayer.hand.add(piles.get(pileIndex).buyVeggieCard(veggieIndex));
                                     takenVeggies++;
-                                    //thisPlayer.sendMessage("\nYou took a card.card from card.pile " + (pileIndex) + " and added it to your hand.\n");
+                                    //thisPlayer.sendMessage("\nYou took a card.card from pile.pile " + (pileIndex) + " and added it to your hand.\n");
                                     validChoice = true;
                                 }
                             }

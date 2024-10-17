@@ -4,7 +4,7 @@ import player.Player;
 import network.Client;
 import network.Server;
 import game.logic.pileSetup;
-import card.pile;
+import pile.pile;
 
 
 

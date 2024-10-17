@@ -1,7 +1,7 @@
 package display;
 
 import card.card;
-import card.pile;
+import pile.pile;
 import game.logic.CardUtils;
 
 import java.util.ArrayList;

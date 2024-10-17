@@ -1,5 +1,6 @@
-package card;
+package pile;
 
+import card.card;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

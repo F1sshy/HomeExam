@@ -1,9 +1,10 @@
 package game;
 
-import game.logic.CardUtils;
+import network.Server;
+import pile.pile;
 import player.IPlayer;
 import player.Player;
-import card.IPile;
+import pile.IPile;
 import java.util.ArrayList;
 import game.logic.scoreCalculator;
 import game.logic.pileSetup;
@@ -15,12 +16,15 @@ public class GameEngine implements IGameEngine {
     private ArrayList<Player> players;
     private ArrayList<pile> piles;
     //private keepPlaying = true;
-    private Market market;
-
+    //private Market market;
+    private Server server;
+    private Display display;
 
     public GameEngine(ArrayList<Player> players) {
         this.players = players;
-        this.market = new Market(piles);
+        //this.market = new Market(piles);
+        this.server = server;
+        this.display = new Display();
     }
 
     @Override
@@ -28,9 +32,6 @@ public class GameEngine implements IGameEngine {
         pileSetup pileSetup = new pileSetup();
         pileSetup.setPiles(players.size());
         piles = pileSetup.getPiles();
-        market.printMarket(piles);
-        Display display = new Display();
-        display.displayMarket(piles);
         gameLoop();
     }
 
@@ -65,9 +66,9 @@ public class GameEngine implements IGameEngine {
 
         private void handlePlayerTurn(Player thisPlayer){
             thisPlayer.sendMessage("\n\n****************************************************************\nIt's your turn! Your hand is:\n");
-            thisPlayer.sendMessage(CardUtils.displayHand(thisPlayer.getHand()));
+            thisPlayer.sendMessage(Display.displayHand(thisPlayer.getHand()));
             thisPlayer.sendMessage("\nThe piles are: ");
-            thisPlayer.sendMessage(market.printMarket(piles));
+            thisPlayer.sendMessage(display.displayMarket(piles));
             boolean validChoice = false;
             while (!validChoice) {
                 thisPlayer.sendMessage("\n\nTake either one point card (Syntax example: 2) or up to two vegetable cards (Syntax example: CF).\n");
@@ -76,7 +77,7 @@ public class GameEngine implements IGameEngine {
             }
             checkAndHandleCriteriaCard(thisPlayer);
             thisPlayer.sendMessage("\nYour turn is completed\n****************************************************************\n\n");
-            //Server.sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
+            server.sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
         }
 
     private void checkAndHandleCriteriaCard(Player thisPlayer) {
@@ -98,7 +99,7 @@ public class GameEngine implements IGameEngine {
             }
         }
         thisPlayer.sendMessage("\nYour turn is completed\n****************************************************************\n\n");
-       //Server.sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n"+Display.displayHand(thisPlayer.getHand())+"\n", players);
+       server.sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n"+Display.displayHand(thisPlayer.getHand())+"\n");
     }
 
     private boolean processPlayerChoice (Player thisPlayer, String pileChoice){
@@ -167,7 +168,7 @@ public class GameEngine implements IGameEngine {
             if (choice == 1 || emptyPiles) {
                 //takeVegetableCards(thisPlayer);
             }
-            //Server.sendToAllPlayers("Bot " + thisPlayer.getPlayerID() + "'s hand is now: \n" + displayHand(thisPlayer.getHand()) + "\n");
+            server.sendToAllPlayers("Bot " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
         }
 //
         private boolean takeBestPointCard (Player thisPlayer){
@@ -191,23 +192,25 @@ public class GameEngine implements IGameEngine {
             }
             return false;
         }
-
+/*
         private void takeVegetableCards (Player thisPlayer){
             int cardsPicked = 0;
             for (IPile pile : piles) {
-                if (pile.getVeggieCard(1)[0] != null && cardsPicked < 2) {
+                if (pile.getVeggieCard()[0] != null && cardsPicked < 2) {
                     thisPlayer.getHand().add(pile.buyVeggieCard(0));
                     cardsPicked++;
                 }
-//                if (pile.getVeggieCard()[1] != null && cardsPicked < 2) {
-//                    thisPlayer.getHand().add(pile.buyVeggieCard(1));
-//                    cardsPicked++;
-//                }
-//            }
-//            if (cardsPicked == 0) {
-//                takeBestPointCard(thisPlayer);
-//            }
-//        }
+               if (pile.getVeggieCard()[1] != null && cardsPicked < 2) {
+                    thisPlayer.getHand().add(pile.buyVeggieCard(1));
+                    cardsPicked++;
+                }
+            }
+            if (cardsPicked == 0) {
+                takeBestPointCard(thisPlayer);
+            }
+        }
+    */
     }
+
 
 

@@ -22,7 +22,7 @@ public class Server implements IServer {
     }
 
     public void server(int numberPlayers, int numberOfBots) throws Exception {
-        players.add(new Player(0, false, null, null, null)); // add this instance as a Player
+        //players.add(new Player(0, false, null, null, null)); // add this instance as a Player
         // Open for connections if there are online players
         for (int i = 0; i < numberOfBots; i++) {
             players.add(new Player(i + 1, true, null, null, null)); // add a bot

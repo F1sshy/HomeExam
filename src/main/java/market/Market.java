@@ -1,7 +1,8 @@
-package card;
+package market;
 
 import java.util.ArrayList;
-import game.logic.pileSetup;
+
+import pile.pile;
 
 public class Market implements IMarket {
     private ArrayList<pile> piles;

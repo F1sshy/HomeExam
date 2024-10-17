@@ -1,6 +1,6 @@
 package game.logic;
 
-import card.pile;
+import pile.pile;
 import card.card;
 import card.card.Vegetable;
 import org.json.JSONArray;

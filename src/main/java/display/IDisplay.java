@@ -3,7 +3,7 @@ package display;
 import java.util.ArrayList;
 
 import card.card;
-import card.pile;
+import pile.pile;
 
 
 public interface IDisplay {
