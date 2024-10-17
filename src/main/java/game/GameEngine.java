@@ -166,7 +166,7 @@ public class GameEngine implements IGameEngine {
                 emptyPiles = !takeBestPointCard(thisPlayer);
             }
             if (choice == 1 || emptyPiles) {
-                //takeVegetableCards(thisPlayer);
+                takeVegetableCards(thisPlayer);
             }
             server.sendToAllPlayers("Bot " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
         }
@@ -192,15 +192,15 @@ public class GameEngine implements IGameEngine {
             }
             return false;
         }
-/*
+
         private void takeVegetableCards (Player thisPlayer){
             int cardsPicked = 0;
             for (IPile pile : piles) {
-                if (pile.getVeggieCard()[0] != null && cardsPicked < 2) {
+                if (pile.getVeggieCard(0) != null && cardsPicked < 2) {
                     thisPlayer.getHand().add(pile.buyVeggieCard(0));
                     cardsPicked++;
                 }
-               if (pile.getVeggieCard()[1] != null && cardsPicked < 2) {
+               if (pile.getVeggieCard(1) != null && cardsPicked < 2) {
                     thisPlayer.getHand().add(pile.buyVeggieCard(1));
                     cardsPicked++;
                 }
@@ -209,7 +209,7 @@ public class GameEngine implements IGameEngine {
                 takeBestPointCard(thisPlayer);
             }
         }
-    */
+
     }
 
 
