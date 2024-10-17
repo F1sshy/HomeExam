@@ -1,7 +1,7 @@
 package market;
 
 import java.util.ArrayList;
-
+import card.card;
 import pile.pile;
 
 public class Market implements IMarket {
@@ -11,29 +11,45 @@ public class Market implements IMarket {
         this.piles = piles;
     }
 
-
-
-    public String printMarket(ArrayList<pile> piles) {
-        String pileString = "Point Cards:\t";
-        for (int p=0; p<piles.size(); p++) {
-            if(piles.get(p).getPointCard()==null) {
-                pileString += "["+p+"]"+String.format("%-43s", "Empty") + "\t";
+    public void replaceMarket() {
+        for (int i = 0; i < piles.size(); i++) {
+            pile p = piles.get(i);
+            if (p.isEmpty() || p.areVeggieCardsEmpty()) {
+                card newCard = drawCardFromPile(p);
+                if (newCard != null) {
+                    p.addCard(newCard);
+                }
             }
-            else
-                pileString += "["+p+"]"+String.format("%-43s", piles.get(p).getPointCard()) + "\t";
         }
-        pileString += "\nVeggie Cards:\t";
-        char veggieCardIndex = 'A';
-        for (pile pile : piles) {
-            pileString += "["+veggieCardIndex+"]"+String.format("%-43s", pile.getVeggieCard(0)) + "\t";
-            veggieCardIndex++;
-        }
-        pileString += "\n\t\t";
-        for (pile pile : piles) {
-            pileString += "["+veggieCardIndex+"]"+String.format("%-43s", pile.getVeggieCard(1)) + "\t";
-            veggieCardIndex++;
-        }
-        return pileString;
     }
 
+    private card drawCardFromPile(pile p) {
+        if (!p.isEmpty()) {
+            return p.removeCard();
+        } else {
+            return drawCardFromLargestPile();
+        }
+    }
+
+    private card drawCardFromLargestPile() {
+        int largestPileIndex = -1;
+        int largestSize = 0;
+
+        for (int i = 0; i < piles.size(); i++) {
+            if (piles.get(i).size() > largestSize) {
+                largestSize = piles.get(i).size();
+                largestPileIndex = i;
+            }
+        }
+
+        if (largestPileIndex != -1 && largestSize > 0) {
+            return piles.get(largestPileIndex).removeCard();
+        }
+
+        return null;
+    }
+
+    public ArrayList<pile> getPiles() {
+        return piles;
+    }
 }

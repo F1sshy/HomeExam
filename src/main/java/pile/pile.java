@@ -68,7 +68,11 @@ public class pile implements IPile {
     }
 
     public boolean isEmpty() {
-        return cards.isEmpty() && veggieCards[0] == null && veggieCards[1] == null;
+        return cards.isEmpty();
+    }
+
+    public boolean areVeggieCardsEmpty() {
+        return veggieCards[0] == null && veggieCards[1] == null;
     }
 
     public card getVeggieCard(int index) {
@@ -99,6 +103,21 @@ public class pile implements IPile {
         }
 
         return aCard;
+    }
+
+    public void addCard(card newCard) {
+        cards.add(newCard);
+    }
+
+    public card removeCard() {
+        if (!cards.isEmpty()) {
+            return cards.remove(0);
+        }
+        return null;
+    }
+
+    public int size() {
+        return cards.size();
     }
 
 }

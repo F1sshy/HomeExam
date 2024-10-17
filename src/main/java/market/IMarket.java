@@ -1,10 +1,18 @@
 package market;
 
 import pile.pile;
-
-import java.util.ArrayList;
+import card.card;
 
 public interface IMarket {
-    String printMarket(ArrayList<pile> piles);
+    void replaceMarket();
+
+    private card drawCardFromPile(pile p) {
+        return drawCardFromLargestPile();
+
+    }
+
+    private card drawCardFromLargestPile() {
+        return null;
+    }
 
 }

@@ -8,4 +8,8 @@ public interface IPile {
     card getVeggieCard(int index);
     card buyVeggieCard(int index);
     boolean isEmpty();
+    boolean areVeggieCardsEmpty();
+    void addCard(card c);
+    card removeCard();
+    int size();
 }
