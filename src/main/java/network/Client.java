@@ -5,7 +5,17 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
+/**
+ * The Client class implements the IClient interface and represents a client in the game.
+ */
 public class Client implements IClient {
+
+    /**
+     * Constructs a Client and attempts to connect to the server.
+     *
+     * @param ipAddress the IP address of the server
+     * @param port the port number of the server
+     */
     public Client(String ipAddress, String port){
         try {
             run(ipAddress, Integer.parseInt(port));
@@ -16,6 +26,13 @@ public class Client implements IClient {
 
     }
 
+    /**
+     * Connects to the server and handles communication.
+     *
+     * @param ipAddress the IP address of the server
+     * @param port the port number of the server
+     * @throws Exception if an I/O error occurs when creating the socket or streams
+     */
     public void run(String ipAddress, int port) throws Exception {
         //Connect to network.server
         Socket aSocket = new Socket(ipAddress, port);

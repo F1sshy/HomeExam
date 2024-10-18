@@ -12,18 +12,29 @@ import card.*;
 import display.Display;
 import market.Market;
 
+/**
+ * The GameEngine class implements the IGameEngine interface and manages the main game logic.
+ */
 public class GameEngine implements IGameEngine {
     private ArrayList<Player> players;
     private Market market;
-    //private Server server;
     private Display display;
 
+    /**
+     * Constructs a GameEngine with the specified list of players.
+     *
+     * @param players the list of players participating in the game
+     */
     public GameEngine(ArrayList<Player> players) {
         this.players = players;
-        //this.server = server;
         this.display = new Display();
     }
 
+    /**
+     * Starts the game with the specified arguments.
+     *
+     * @param args the command line arguments
+     */
     @Override
     public void startGame(String[] args) {
         PileSetup pileSetup = new PileSetup();
@@ -34,6 +45,9 @@ public class GameEngine implements IGameEngine {
         calculateAndAnnounceScores();
     }
 
+    /**
+     * The main game loop that handles player turns and game progression.
+     */
     public void gameLoop() {
         int currentPlayer = (int) (Math.random() * (players.size()));
         boolean keepPlaying = true;
@@ -65,6 +79,11 @@ public class GameEngine implements IGameEngine {
         calculateAndAnnounceScores();
     }
 
+    /**
+     * Handles the turn for a human player.
+     *
+     * @param thisPlayer the player whose turn it is
+     */
     private void handlePlayerTurn(Player thisPlayer) {
         thisPlayer.sendMessage("\n\n****************************************************************\nIt's your turn! Your hand is:\n");
         thisPlayer.sendMessage(Display.displayHand(thisPlayer.getHand()));
@@ -81,6 +100,11 @@ public class GameEngine implements IGameEngine {
         sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
     }
 
+    /**
+     * Checks and handles the criteria card for the player.
+     *
+     * @param thisPlayer the player whose criteria card is being checked
+     */
     private void checkAndHandleCriteriaCard(Player thisPlayer) {
         boolean criteriaCardInHand = false;
         for (ICard card : thisPlayer.getHand()) {
@@ -94,14 +118,26 @@ public class GameEngine implements IGameEngine {
             String choice = thisPlayer.readMessage();
             if (choice.matches("\\d")) {
                 int cardIndex = Integer.parseInt(choice);
-                ICard selectedCard = thisPlayer.getHand().get(cardIndex);
-                selectedCard.setCriteriaSideUp(false);
+                if (cardIndex >= 0 && cardIndex < thisPlayer.getHand().size()) {
+                    ICard selectedCard = thisPlayer.getHand().get(cardIndex);
+                    selectedCard.setCriteriaSideUp(false);
+                } else {
+                    thisPlayer.sendMessage("\nInvalid index. Please enter a valid card index.\n");
+                    checkAndHandleCriteriaCard(thisPlayer); // Recursively prompt for valid input
+                }
             }
         }
         thisPlayer.sendMessage("\nYour turn is completed\n****************************************************************\n\n");
         sendToAllPlayers("Player " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
     }
 
+    /**
+     * Processes the player's choice of pile.
+     *
+     * @param thisPlayer the player making the choice
+     * @param pileChoice the choice made by the player
+     * @return true if the choice is valid, false otherwise
+     */
     private boolean processPlayerChoice(Player thisPlayer, String pileChoice) {
         if (pileChoice.matches("\\d")) {
             int pileIndex = Integer.parseInt(pileChoice);
@@ -121,6 +157,13 @@ public class GameEngine implements IGameEngine {
         }
     }
 
+    /**
+     * Processes the player's choice of vegetable cards.
+     *
+     * @param thisPlayer the player making the choice
+     * @param pileChoice the choice made by the player
+     * @return true if the choice is valid, false otherwise
+     */
     private boolean processVeggieChoice(Player thisPlayer, String pileChoice) {
         int takenVeggies = 0;
         for (int charIndex = 0; charIndex < pileChoice.length(); charIndex++) {
@@ -146,6 +189,9 @@ public class GameEngine implements IGameEngine {
         return true;
     }
 
+    /**
+     * Calculates and announces the scores of all players.
+     */
     public void calculateAndAnnounceScores() {
         int maxScore = 0;
         int playerID = 0;
@@ -165,6 +211,11 @@ public class GameEngine implements IGameEngine {
         }
     }
 
+    /**
+     * Handles the turn for a bot player.
+     *
+     * @param thisPlayer the bot player whose turn it is
+     */
     private void handleBotTurn(Player thisPlayer) {
         boolean emptyPiles = false;
         int choice = (int) (Math.random() * 2);
@@ -177,6 +228,12 @@ public class GameEngine implements IGameEngine {
         sendToAllPlayers("Bot " + thisPlayer.getPlayerID() + "'s hand is now: \n" + Display.displayHand(thisPlayer.getHand()) + "\n");
     }
 
+    /**
+     * Bot player takes the best available point card.
+     *
+     * @param thisPlayer the bot player
+     * @return true if a point card was taken, false otherwise
+     */
     private boolean takeBestPointCard(Player thisPlayer) {
         int highestPointCardIndex = 0;
         int highestPointCardScore = 0;
@@ -199,6 +256,11 @@ public class GameEngine implements IGameEngine {
         return false;
     }
 
+    /**
+     * Bot player takes available vegetable cards.
+     *
+     * @param thisPlayer the bot player
+     */
     private void takeVegetableCards(Player thisPlayer) {
         int cardsPicked = 0;
         for (IPile pile : market.getPiles()) {
@@ -216,6 +278,11 @@ public class GameEngine implements IGameEngine {
         }
     }
 
+    /**
+     * Sends a message to all players.
+     *
+     * @param message the message to be sent
+     */
     public void sendToAllPlayers(String message) {
         for (Player player : players) {
             player.sendMessage(message);

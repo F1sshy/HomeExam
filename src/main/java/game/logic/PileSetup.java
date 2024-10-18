@@ -17,12 +17,23 @@ public class PileSetup {
 
     ArrayList<pile> piles = new ArrayList<>();
 
+    /**
+     * Sets up the piles based on the number of players.
+     *
+     * @param nrPlayers the number of players
+     */
     public void setPiles(int nrPlayers) {
         ArrayList<card> deck = createDeck(nrPlayers);
         shuffleDeck(deck);
         divideDeckIntoPiles(deck);
     }
 
+    /**
+     * Creates a deck of cards based on the number of players.
+     *
+     * @param nrPlayers the number of players
+     * @return the created deck of cards
+     */
     private ArrayList<card> createDeck(int nrPlayers) {
         ArrayList<card> deck = new ArrayList<>();
         ArrayList<card> deckPepper = new ArrayList<>();
@@ -68,10 +79,20 @@ public class PileSetup {
         return deck;
     }
 
+    /**
+     * Shuffles the deck of cards.
+     *
+     * @param deck the deck of cards to be shuffled
+     */
     private void shuffleDeck(ArrayList<card> deck) {
         Collections.shuffle(deck);
     }
 
+    /**
+     * Divides the deck of cards into piles.
+     *
+     * @param deck the deck of cards to be divided
+     */
     private void divideDeckIntoPiles(ArrayList<card> deck) {
         ArrayList<card> pile1 = new ArrayList<>();
         ArrayList<card> pile2 = new ArrayList<>();
@@ -93,6 +114,11 @@ public class PileSetup {
 
     }
 
+    /**
+     * Gets the piles of cards.
+     *
+     * @return the piles of cards
+     */
     public ArrayList<pile> getPiles() {
         return piles;
     }

@@ -7,10 +7,18 @@ import pile.pile;
 public class Market implements IMarket {
     private ArrayList<pile> piles;
 
+    /**
+     * Gets the size of the pile.
+     *
+     * @return the number of cards in the pile
+     */
     public Market(ArrayList<pile> piles) {
         this.piles = (piles != null) ? piles : new ArrayList<>();
     }
 
+    /**
+     * Replaces empty piles and empty veggie cards in the market with new cards.
+     */
     public void replaceMarket() {
         if (piles == null) return;
         for (int i = 0; i < piles.size(); i++) {
@@ -35,6 +43,11 @@ public class Market implements IMarket {
         }
     }
 
+    /**
+     * Draws a card from the largest pile in the market.
+     *
+     * @return the drawn card, or null if no card can be drawn
+     */
     private card drawCardFromLargestPile() {
         if (piles == null) return null;
         int largestPileIndex = -1;
@@ -54,6 +67,11 @@ public class Market implements IMarket {
         return null;
     }
 
+    /**
+     * Gets the list of piles in the market.
+     *
+     * @return the list of piles
+     */
     public ArrayList<pile> getPiles() {
         return piles;
     }

@@ -9,6 +9,12 @@ import java.util.ArrayList;
 public class Display implements IDisplay {
 
 
+    /**
+     * Displays the player's hand of cards.
+     *
+     * @param hand the player's hand of cards
+     * @return a string representation of the player's hand
+     */
     public static String displayHand(ArrayList<card> hand) {
         StringBuilder handString = new StringBuilder("Criteria:\t");
         for (int i = 0; i < hand.size(); i++) {
@@ -26,6 +32,12 @@ public class Display implements IDisplay {
         return handString.toString();
     }
 
+    /**
+     * Displays the market of piles.
+     *
+     * @param piles the list of piles in the market
+     * @return a string representation of the market
+     */
     public String displayMarket(ArrayList<pile> piles) {
         String pileString = "Point Cards:\t";
         for (int p=0; p<piles.size(); p++) {
