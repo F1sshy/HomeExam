@@ -1,20 +1,11 @@
 package card;
 
 /**
- * Sends a message to all connected players.
- *
- * @param message the message to be sent
+ * Represents a card in the game.
  */
 public class card implements ICard {
 
-    /**
-     * Enum representing the types of vegetables.
-     */
-    public enum Vegetable {
-        PEPPER, LETTUCE, CARROT, CABBAGE, ONION, TOMATO
-    }
-
-    public Vegetable vegetable;
+    private Vegetable vegetable;
     public String criteria;
     public boolean criteriaSideUp = true;
 
@@ -68,7 +59,6 @@ public class card implements ICard {
      */
     @Override
     public String getCriteria() {
-        // TODO Auto-generated method stub
         return this.criteria;
     }
 
@@ -81,5 +71,3 @@ public class card implements ICard {
         this.criteriaSideUp = value;
     }
 }
-
-

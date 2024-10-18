@@ -3,7 +3,7 @@ package display;
 import card.card;
 import pile.pile;
 import game.logic.CardUtils;
-
+import card.Vegetable;
 import java.util.ArrayList;
 
 public class Display implements IDisplay {
@@ -18,12 +18,12 @@ public class Display implements IDisplay {
     public static String displayHand(ArrayList<card> hand) {
         StringBuilder handString = new StringBuilder("Criteria:\t");
         for (int i = 0; i < hand.size(); i++) {
-            if (hand.get(i).criteriaSideUp && hand.get(i).vegetable != null) {
-                handString.append("[").append(i).append("] ").append(hand.get(i).criteria).append(" (").append(hand.get(i).vegetable.toString()).append(")\t");
+            if (hand.get(i).criteriaSideUp && hand.get(i).getVegetable() != null) {
+                handString.append("[").append(i).append("] ").append(hand.get(i).criteria).append(" (").append(hand.get(i).getVegetable().toString()).append(")\t");
             }
         }
         handString.append("\nVegetables:\t");
-        for (card.Vegetable vegetable : card.Vegetable.values()) {
+        for (Vegetable vegetable : Vegetable.values()) {
             int count = CardUtils.countVegetables(hand, vegetable);
             if (count > 0) {
                 handString.append(vegetable).append(": ").append(count).append("\t");

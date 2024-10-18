@@ -1,7 +1,7 @@
 package game.logic;
 
 import card.card;
-import card.card.Vegetable;
+import card.Vegetable;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class CardUtils {
     public static int countVegetables(ArrayList<card> hand, Vegetable vegetable) {
         int count = 0;
         for (card card : hand) {
-            if (!card.criteriaSideUp && card.vegetable == vegetable) {
+            if (!card.criteriaSideUp && card.getVegetable() == vegetable) {
                 count++;
             }
         }

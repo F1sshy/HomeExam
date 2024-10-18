@@ -2,7 +2,7 @@ package game.logic;
 
 import pile.pile;
 import card.card;
-import card.card.Vegetable;
+import card.Vegetable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class PileSetup {
+public class VeggiePileSetup implements IPileSetup {
 
     ArrayList<pile> piles = new ArrayList<>();
 

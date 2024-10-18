@@ -4,8 +4,9 @@ import card.card;
 import player.Player;
 import game.logic.CardUtils;
 import java.util.ArrayList;
+import card.Vegetable;
 
-public class scoreCalculator {
+public class scoreCalculator implements IScoreCalculator {
     /**
      * Calculates the total score for a player's hand based on various criteria.
      *
@@ -84,7 +85,7 @@ public class scoreCalculator {
         int addScore = Integer.parseInt(expr[0].trim());
         if (expr[1].contains("MISSING")) {
             int missing = 0;
-            for (card.Vegetable vegetable : card.Vegetable.values()) {
+            for (Vegetable vegetable : Vegetable.values()) {
                 if (CardUtils.countVegetables(hand, vegetable) == 0) {
                     missing++;
                 }
@@ -93,7 +94,7 @@ public class scoreCalculator {
         } else {
             int atLeastPerVegType = Integer.parseInt(expr[1].substring(expr[1].indexOf(">=") + 2).trim());
             int totalType = 0;
-            for (card.Vegetable vegetable : card.Vegetable.values()) {
+            for (Vegetable vegetable : Vegetable.values()) {
                 if (CardUtils.countVegetables(hand, vegetable) >= atLeastPerVegType) {
                     totalType++;
                 }
@@ -110,7 +111,7 @@ public class scoreCalculator {
      */
     private static int handleSetCriteria(ArrayList<card> hand) {
         int addScore = 12;
-        for (card.Vegetable vegetable : card.Vegetable.values()) {
+        for (Vegetable vegetable : Vegetable.values()) {
             if (CardUtils.countVegetables(hand, vegetable) == 0) {
                 addScore = 0;
                 break;
@@ -131,7 +132,7 @@ public class scoreCalculator {
         String[] scores = parts[1].split(",");
         int evenScore = Integer.parseInt(scores[0].split("=")[1].trim());
         int oddScore = Integer.parseInt(scores[1].split("=")[1].trim());
-        int count = CardUtils.countVegetables(hand, card.Vegetable.valueOf(parts[0].trim()));
+        int count = CardUtils.countVegetables(hand, Vegetable.valueOf(parts[0].trim()));
         return (count % 2 == 0) ? evenScore : oddScore;
     }
 
@@ -146,12 +147,26 @@ public class scoreCalculator {
         String[] parts = criteria.split("\\+");
         int scoreToAdd = Integer.parseInt(parts[1].split("=")[1].trim());
         String[] veggies = parts[0].split(" ");
+        int minCount = Integer.MAX_VALUE;
+        boolean sameVegetable = true;
+        String firstVeg = veggies[0].trim();
+
         for (String veg : veggies) {
-            if (CardUtils.countVegetables(hand, card.Vegetable.valueOf(veg.trim())) == 0) {
-                return 0;
+            int count = CardUtils.countVegetables(hand, Vegetable.valueOf(veg.trim()));
+            if (count < minCount) {
+                minCount = count;
+            }
+            if (!veg.trim().equals(firstVeg)) {
+                sameVegetable = false;
             }
         }
-        return scoreToAdd;
+
+        int totalScore = scoreToAdd * minCount;
+        if (sameVegetable && veggies.length == 2) {
+            totalScore /= 2;
+        }
+
+        return totalScore;
     }
 
     /**
@@ -165,7 +180,7 @@ public class scoreCalculator {
         String[] parts = criteria.split("/");
         int scorePerUnit = Integer.parseInt(parts[0].trim());
         String vegType = parts[1].trim();
-        int count = CardUtils.countVegetables(hand, card.Vegetable.valueOf(vegType));
+        int count = CardUtils.countVegetables(hand, Vegetable.valueOf(vegType));
         return scorePerUnit * count;
     }
 
@@ -180,7 +195,7 @@ public class scoreCalculator {
         String[] parts = criteria.split("-");
         int scorePerUnit = Integer.parseInt(parts[0].trim());
         String vegType = parts[1].trim();
-        int count = CardUtils.countVegetables(hand, card.Vegetable.valueOf(vegType));
+        int count = CardUtils.countVegetables(hand, Vegetable.valueOf(vegType));
         return -scorePerUnit * count;
     }
 }
