@@ -15,12 +15,12 @@ import market.Market;
 public class GameEngine implements IGameEngine {
     private ArrayList<Player> players;
     private Market market;
-    private Server server;
+    //private Server server;
     private Display display;
 
     public GameEngine(ArrayList<Player> players) {
         this.players = players;
-        this.server = server;
+        //this.server = server;
         this.display = new Display();
     }
 

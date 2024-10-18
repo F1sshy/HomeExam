@@ -21,7 +21,7 @@ public class Market implements IMarket {
                     p.addCard(newCard);
                 }
             }
-            if (p.areVeggieCardsEmpty()) {
+            if (p.areAnyVeggieCardsEmpty()) {
                 for (int j = 0; j < p.veggieCards.length; j++) {
                     if (p.veggieCards[j] == null) {
                         card newVeggieCard = drawCardFromLargestPile();

@@ -39,8 +39,8 @@ public class pile implements IPile {
         return cards.isEmpty();
     }
 
-    public boolean areVeggieCardsEmpty() {
-        return veggieCards[0] == null && veggieCards[1] == null;
+    public boolean areAnyVeggieCardsEmpty() {
+        return veggieCards[0] == null || veggieCards[1] == null;
     }
 
     public card getVeggieCard(int index) {

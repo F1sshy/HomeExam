@@ -39,12 +39,13 @@ public class Display implements IDisplay {
         char veggieCardIndex = 'A';
         for (pile pile : piles) {
             pileString += "["+veggieCardIndex+"]"+String.format("%-43s", pile.getVeggieCard(0)) + "\t";
-            veggieCardIndex++;
+            veggieCardIndex+=2;
         }
         pileString += "\n\t\t";
+        veggieCardIndex = 'B';
         for (pile pile : piles) {
             pileString += "["+veggieCardIndex+"]"+String.format("%-43s", pile.getVeggieCard(1)) + "\t";
-            veggieCardIndex++;
+            veggieCardIndex+=2;
         }
         return pileString;
     }
