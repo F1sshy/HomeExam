@@ -7,7 +7,7 @@ import player.Player;
 import pile.IPile;
 import java.util.ArrayList;
 import game.logic.scoreCalculator;
-import game.logic.pileSetup;
+import game.logic.PileSetup;
 import card.*;
 import display.Display;
 import market.Market;
@@ -26,7 +26,7 @@ public class GameEngine implements IGameEngine {
 
     @Override
     public void startGame(String[] args) {
-        pileSetup pileSetup = new pileSetup();
+        PileSetup pileSetup = new PileSetup();
         pileSetup.setPiles(players.size());
         ArrayList<pile> piles = pileSetup.getPiles();
         this.market = new Market(piles);

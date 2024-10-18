@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class pileSetup {
+public class PileSetup {
 
     ArrayList<pile> piles = new ArrayList<>();
 
