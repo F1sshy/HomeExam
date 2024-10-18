@@ -42,7 +42,7 @@ public class GameEngine implements IGameEngine {
             thisPlayer = players.get(currentPlayer);
             boolean stillAvailableCards = false;
             for (IPile p : market.getPiles()) {
-                if (!p.isEmpty()) {
+                if ((!p.isEmpty() || p.getVeggieCard(0) != null || p.getVeggieCard(1) != null)) {
                     stillAvailableCards = true;
                     break;
                 }
