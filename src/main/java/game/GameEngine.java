@@ -1,11 +1,11 @@
 package game;
 
+import game.logic.VeggieScoreCalculator;
 import pile.pile;
 import player.IPlayer;
 import player.Player;
 import pile.IPile;
 import java.util.ArrayList;
-import game.logic.scoreCalculator;
 import game.logic.VeggiePileSetup;
 import card.*;
 import display.Display;
@@ -195,7 +195,7 @@ public class GameEngine implements IGameEngine {
         int maxScore = 0;
         int playerID = 0;
         for (Player player : players) {
-            player.setScore(scoreCalculator.calculateScore(player.getHand(), player, players));
+            player.setScore(VeggieScoreCalculator.calculateScore(player.getHand(), player, players));
             if (player.getScore() > maxScore) {
                 maxScore = player.getScore();
                 playerID = player.getPlayerID();
@@ -241,7 +241,7 @@ public class GameEngine implements IGameEngine {
                 ArrayList<card> tempHand = new ArrayList<>();
                 tempHand.addAll(thisPlayer.getHand());
                 tempHand.add(market.getPiles().get(i).getPointCard());
-                int score = scoreCalculator.calculateScore(tempHand, thisPlayer, players);
+                int score = VeggieScoreCalculator.calculateScore(tempHand, thisPlayer, players);
                 if (score > highestPointCardScore) {
                     highestPointCardScore = score;
                     highestPointCardIndex = i;
@@ -283,7 +283,7 @@ public class GameEngine implements IGameEngine {
      * @param message the message to be sent
      */
     public void sendToAllPlayers(String message) {
-        for (Player player : players) {
+        for (IPlayer player : players) {
             player.sendMessage(message);
         }
     }

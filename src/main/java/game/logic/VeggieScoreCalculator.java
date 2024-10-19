@@ -2,11 +2,11 @@ package game.logic;
 
 import card.card;
 import player.Player;
-import game.logic.CardUtils;
+
 import java.util.ArrayList;
 import card.Vegetable;
 
-public class scoreCalculator implements IScoreCalculator {
+public class VeggieScoreCalculator implements IScoreCalculator {
     /**
      * Calculates the total score for a player's hand based on various criteria.
      *

@@ -3,8 +3,10 @@ package game.logic;
 import pile.pile;
 import card.card;
 import card.Vegetable;
+import card.CardFactory;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import card.ICard;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -54,12 +56,12 @@ public class VeggiePileSetup implements IPileSetup {
                 JSONObject cardJson = cardsArray.getJSONObject(i);
                 JSONObject criteriaObj = cardJson.getJSONObject("criteria");
 
-                deckPepper.add(new card(Vegetable.PEPPER, criteriaObj.getString("PEPPER")));
-                deckLettuce.add(new card(Vegetable.LETTUCE, criteriaObj.getString("LETTUCE")));
-                deckCarrot.add(new card(Vegetable.CARROT, criteriaObj.getString("CARROT")));
-                deckCabbage.add(new card(Vegetable.CABBAGE, criteriaObj.getString("CABBAGE")));
-                deckOnion.add(new card(Vegetable.ONION, criteriaObj.getString("ONION")));
-                deckTomato.add(new card(Vegetable.TOMATO, criteriaObj.getString("TOMATO")));
+                deckPepper.add(CardFactory.createCard(Vegetable.PEPPER, criteriaObj.getString("PEPPER")));
+                deckLettuce.add(CardFactory.createCard(Vegetable.LETTUCE, criteriaObj.getString("LETTUCE")));
+                deckCarrot.add(CardFactory.createCard(Vegetable.CARROT, criteriaObj.getString("CARROT")));
+                deckCabbage.add(CardFactory.createCard(Vegetable.CABBAGE, criteriaObj.getString("CABBAGE")));
+                deckOnion.add(CardFactory.createCard(Vegetable.ONION, criteriaObj.getString("ONION")));
+                deckTomato.add(CardFactory.createCard(Vegetable.TOMATO, criteriaObj.getString("TOMATO")));
             }
 
         } catch (IOException e) {
