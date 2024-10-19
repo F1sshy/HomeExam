@@ -2,15 +2,15 @@ package display;
 
 import java.util.ArrayList;
 
-import card.card;
-import pile.pile;
+import card.Card;
+import pile.Pile;
 
 
 public interface IDisplay {
 
-    String displayMarket(ArrayList<pile> piles);
+    String displayMarket(ArrayList<Pile> Piles);
 
-    static String displayHand(ArrayList<card> hand) {
+    static String displayHand(ArrayList<Card> hand) {
         return null;
     }
 }

@@ -3,7 +3,7 @@ package card;
 /**
  * Represents a card in the game.
  */
-public class card implements ICard {
+public class Card implements ICard {
 
     private Vegetable vegetable;
     public String criteria;
@@ -15,7 +15,7 @@ public class card implements ICard {
      * @param vegetable the vegetable type of the card
      * @param criteria the criteria of the card
      */
-    public card(Vegetable vegetable, String criteria) {
+    public Card(Vegetable vegetable, String criteria) {
         this.vegetable = vegetable;
         this.criteria = criteria;
     }

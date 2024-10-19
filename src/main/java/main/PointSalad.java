@@ -2,7 +2,7 @@ package main;
 
 import java.util.Scanner;
 
-import pile.pile;
+import pile.Pile;
 import game.GameEngine;
 import network.Server;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PointSalad {
     private ArrayList<Player> players = new ArrayList<>();
-    private ArrayList<pile> piles;
+    private ArrayList<Pile> Piles;
 
     /**
      * Constructs a PointSalad game with the specified command line arguments.
@@ -23,7 +23,7 @@ public class PointSalad {
         int numberPlayers = 0;
         int numberOfBots = 0;
 
-        this.piles = piles;
+        this.Piles = Piles;
 
         if (args.length == 0) {
             System.out.println("Please enter the number of players (1-6): ");
@@ -45,7 +45,7 @@ public class PointSalad {
             e.printStackTrace();
         }
 
-        GameEngine gameEngine = new GameEngine(players);
+        GameEngine gameEngine = GameEngine.getInstance(players);
 
         gameEngine.startGame(args);
 

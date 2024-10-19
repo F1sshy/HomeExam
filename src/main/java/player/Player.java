@@ -1,16 +1,15 @@
 package player;
 
-import card.card;
+import card.Card;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Player implements IPlayer {
     private int playerID;
     private boolean isBot;
     private PlayerCommunication communication;
-    private ArrayList<card> hand = new ArrayList<>();
+    private ArrayList<Card> hand = new ArrayList<>();
     private int score = 0;
 
     public Player(int playerID, boolean isBot, Socket connection, ObjectInputStream inFromClient, ObjectOutputStream outToClient) throws IOException {
@@ -35,12 +34,12 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public ArrayList<card> getHand() {
+    public ArrayList<Card> getHand() {
         return hand;
     }
 
     @Override
-    public void addCardToHand(card card) {
+    public void addCardToHand(Card card) {
         hand.add(card);
     }
 

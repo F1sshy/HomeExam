@@ -1,15 +1,15 @@
 package pile;
 
-import card.card;
+import card.Card;
 
 public interface IPile {
-    card getPointCard();
-    card buyPointCard();
-    card getVeggieCard(int index);
-    card buyVeggieCard(int index);
+    Card getPointCard();
+    Card buyPointCard();
+    Card getVeggieCard(int index);
+    Card buyVeggieCard(int index);
     boolean isEmpty();
     boolean areAnyVeggieCardsEmpty();
-    void addCard(card c);
-    card removeCard();
+    void addCard(Card c);
+    Card removeCard();
     int size();
 }

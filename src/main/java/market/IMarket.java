@@ -1,17 +1,17 @@
 package market;
 
-import pile.pile;
-import card.card;
+import pile.Pile;
+import card.Card;
 
 public interface IMarket {
     void replaceMarket();
 
-    private card drawCardFromPile(pile p) {
+    private Card drawCardFromPile(Pile p) {
         return drawCardFromLargestPile();
 
     }
 
-    private card drawCardFromLargestPile() {
+    private Card drawCardFromLargestPile() {
         return null;
     }
 

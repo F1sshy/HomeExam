@@ -1,13 +1,11 @@
 package player;
 
-import card.card;
+import card.Card;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import card.Vegetable;
 
 import java.io.*;
-import java.net.Socket;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +36,7 @@ class PlayerTest {
     @Test
     void getHand() {
         assertTrue(player.getHand().isEmpty());
-        card newCard = new card(Vegetable.CARROT, "Criteria1");
+        Card newCard = new Card(Vegetable.CARROT, "Criteria1");
         player.addCardToHand(newCard);
         assertEquals(1, player.getHand().size());
         assertEquals(newCard, player.getHand().get(0));
@@ -46,7 +44,7 @@ class PlayerTest {
 
     @Test
     void addCardToHand() {
-        card newCard = new card(Vegetable.CARROT, "Criteria1");
+        Card newCard = new Card(Vegetable.CARROT, "Criteria1");
         player.addCardToHand(newCard);
         assertEquals(1, player.getHand().size());
         assertEquals(newCard, player.getHand().get(0));

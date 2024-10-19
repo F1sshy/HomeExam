@@ -1,6 +1,6 @@
 package game.logic;
 
-import card.card;
+import card.Card;
 import card.Vegetable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,17 +11,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CardUtilsTest {
 
-    private ArrayList<card> hand;
-    private card carrotCard;
-    private card cabbageCard;
-    private card tomatoCard;
+    private ArrayList<Card> hand;
+    private Card carrotCard;
+    private Card cabbageCard;
+    private Card tomatoCard;
 
     @BeforeEach
     void setUp() {
         hand = new ArrayList<>();
-        carrotCard = new card(Vegetable.CARROT, "Criteria1");
-        cabbageCard = new card(Vegetable.CABBAGE, "Criteria2");
-        tomatoCard = new card(Vegetable.TOMATO, "Criteria3");
+        carrotCard = new Card(Vegetable.CARROT, "Criteria1");
+        cabbageCard = new Card(Vegetable.CABBAGE, "Criteria2");
+        tomatoCard = new Card(Vegetable.TOMATO, "Criteria3");
 
         carrotCard.criteriaSideUp = false;
         cabbageCard.criteriaSideUp = false;

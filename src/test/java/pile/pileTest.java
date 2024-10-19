@@ -1,6 +1,6 @@
 package pile;
 
-import card.card;
+import card.Card;
 import card.Vegetable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,21 +11,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class pileTest {
 
-    private pile testPile;
-    private card card1;
-    private card card2;
-    private card card3;
+    private Pile testPile;
+    private Card card1;
+    private Card card2;
+    private Card card3;
 
     @BeforeEach
     void setUp() {
-        card1 = new card(Vegetable.CARROT, "Criteria1");
-        card2 = new card(Vegetable.CABBAGE, "Criteria2");
-        card3 = new card(Vegetable.TOMATO, "Criteria3");
-        ArrayList<card> cards = new ArrayList<>();
-        cards.add(card1);
-        cards.add(card2);
-        cards.add(card3);
-        testPile = new pile(cards);
+        card1 = new Card(Vegetable.CARROT, "Criteria1");
+        card2 = new Card(Vegetable.CABBAGE, "Criteria2");
+        card3 = new Card(Vegetable.TOMATO, "Criteria3");
+        ArrayList<Card> Cards = new ArrayList<>();
+        Cards.add(card1);
+        Cards.add(card2);
+        Cards.add(card3);
+        testPile = new Pile(Cards);
     }
 
     @Test
@@ -69,7 +69,7 @@ class pileTest {
 
     @Test
     void addCard() {
-        card newCard = new card(Vegetable.LETTUCE, "Criteria4");
+        Card newCard = new Card(Vegetable.LETTUCE, "Criteria4");
         testPile.addCard(newCard);
         assertEquals(newCard, testPile.getPointCard());
     }

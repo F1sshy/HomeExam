@@ -1,11 +1,11 @@
 package game.logic;
 
 import java.util.ArrayList;
-import card.card;
-import pile.pile;
+
+import pile.Pile;
 
 public interface IPileSetup {
     void setPiles(int nrPlayers);
-    ArrayList<pile> getPiles();
+    ArrayList<Pile> getPiles();
 
 }

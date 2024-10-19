@@ -2,8 +2,8 @@ package card;
 
 
 public class CardFactory {
-    public static card createCard(Vegetable vegetable, String criteria) {
-        return new card(vegetable, criteria);
+    public static Card createCard(Vegetable vegetable, String criteria) {
+        return new Card(vegetable, criteria);
     }
 
 }

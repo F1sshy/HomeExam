@@ -1,7 +1,7 @@
 package game;
 
 import game.logic.VeggieScoreCalculator;
-import pile.pile;
+import pile.Pile;
 import player.IPlayer;
 import player.Player;
 import pile.IPile;
@@ -18,15 +18,29 @@ public class GameEngine implements IGameEngine {
     private ArrayList<Player> players;
     private Market market;
     private Display display;
+    private static GameEngine instance;
 
     /**
-     * Constructs a GameEngine with the specified list of players.
+     * Private constructor to prevent instantiation.
      *
      * @param players the list of players participating in the game
      */
     public GameEngine(ArrayList<Player> players) {
         this.players = players;
         this.display = new Display();
+    }
+
+    /**
+     * Provides the global point of access to the GameEngine instance.
+     *
+     * @param players the list of players participating in the game
+     * @return the single instance of GameEngine
+     */
+    public static GameEngine getInstance(ArrayList<Player> players) {
+        if (instance == null) {
+            instance = new GameEngine(players);
+        }
+        return instance;
     }
 
     /**
@@ -38,8 +52,8 @@ public class GameEngine implements IGameEngine {
     public void startGame(String[] args) {
         VeggiePileSetup veggiePileSetup = new VeggiePileSetup();
         veggiePileSetup.setPiles(players.size());
-        ArrayList<pile> piles = veggiePileSetup.getPiles();
-        this.market = new Market(piles);
+        ArrayList<Pile> piles = veggiePileSetup.getPiles();
+        this.market = Market.getInstance(piles);
         gameLoop();
         calculateAndAnnounceScores();
     }
@@ -55,7 +69,7 @@ public class GameEngine implements IGameEngine {
             thisPlayer = players.get(currentPlayer);
             boolean stillAvailableCards = false;
             for (IPile p : market.getPiles()) {
-                if ((!p.isEmpty() || p.getVeggieCard(0) != null || p.getVeggieCard(1) != null)) {
+                if (!p.isEmpty() || p.getVeggieCard(0) != null || p.getVeggieCard(1) != null) {
                     stillAvailableCards = true;
                     break;
                 }
@@ -66,13 +80,10 @@ public class GameEngine implements IGameEngine {
             }
             market.replaceMarket(); // Call to reshuffle the piles before player turn
             if (!thisPlayer.isBot()) {
-                market.replaceMarket();
                 handlePlayerTurn(thisPlayer);
             } else {
-                market.replaceMarket();
                 handleBotTurn(thisPlayer);
             }
-            market.replaceMarket();
             currentPlayer = (currentPlayer == players.size() - 1) ? 0 : currentPlayer + 1;
         }
         calculateAndAnnounceScores();
@@ -238,7 +249,7 @@ public class GameEngine implements IGameEngine {
         int highestPointCardScore = 0;
         for (int i = 0; i < market.getPiles().size(); i++) {
             if (market.getPiles().get(i).getPointCard() != null) {
-                ArrayList<card> tempHand = new ArrayList<>();
+                ArrayList<Card> tempHand = new ArrayList<>();
                 tempHand.addAll(thisPlayer.getHand());
                 tempHand.add(market.getPiles().get(i).getPointCard());
                 int score = VeggieScoreCalculator.calculateScore(tempHand, thisPlayer, players);

@@ -1,7 +1,7 @@
 package display;
 
-import card.card;
-import pile.pile;
+import card.Card;
+import pile.Pile;
 import game.logic.CardUtils;
 import card.Vegetable;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class Display implements IDisplay {
      * @param hand the player's hand of cards
      * @return a string representation of the player's hand
      */
-    public static String displayHand(ArrayList<card> hand) {
+    public static String displayHand(ArrayList<Card> hand) {
         StringBuilder handString = new StringBuilder("Criteria:\t");
         for (int i = 0; i < hand.size(); i++) {
             if (hand.get(i).criteriaSideUp && hand.get(i).getVegetable() != null) {
@@ -35,27 +35,27 @@ public class Display implements IDisplay {
     /**
      * Displays the market of piles.
      *
-     * @param piles the list of piles in the market
+     * @param Piles the list of piles in the market
      * @return a string representation of the market
      */
-    public String displayMarket(ArrayList<pile> piles) {
+    public String displayMarket(ArrayList<Pile> Piles) {
         String pileString = "Point Cards:\t";
-        for (int p=0; p<piles.size(); p++) {
-            if(piles.get(p).getPointCard()==null) {
+        for (int p = 0; p< Piles.size(); p++) {
+            if(Piles.get(p).getPointCard()==null) {
                 pileString += "["+p+"]"+String.format("%-43s", "Empty") + "\t";
             }
             else
-                pileString += "["+p+"]"+String.format("%-43s", piles.get(p).getPointCard()) + "\t";
+                pileString += "["+p+"]"+String.format("%-43s", Piles.get(p).getPointCard()) + "\t";
         }
         pileString += "\nVeggie Cards:\t";
         char veggieCardIndex = 'A';
-        for (pile pile : piles) {
+        for (Pile pile : Piles) {
             pileString += "["+veggieCardIndex+"]"+String.format("%-43s", pile.getVeggieCard(0)) + "\t";
             veggieCardIndex+=2;
         }
         pileString += "\n\t\t";
         veggieCardIndex = 'B';
-        for (pile pile : piles) {
+        for (Pile pile : Piles) {
             pileString += "["+veggieCardIndex+"]"+String.format("%-43s", pile.getVeggieCard(1)) + "\t";
             veggieCardIndex+=2;
         }

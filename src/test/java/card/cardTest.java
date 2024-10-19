@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class cardTest {
 
-    private card card;
+    private Card card;
 
     @BeforeEach
     void setUp() {
-        card = new card(Vegetable.CARROT, "TEST");
+        card = new Card(Vegetable.CARROT, "TEST");
 
     }
 

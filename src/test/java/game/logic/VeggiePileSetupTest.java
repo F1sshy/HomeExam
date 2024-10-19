@@ -1,14 +1,6 @@
 package game.logic;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import pile.pile;
-import card.card;
-import card.Vegetable;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class VeggiePileSetupTest {
 
