@@ -15,7 +15,7 @@ import market.Market;
  * The GameEngine class implements the IGameEngine interface and manages the main game logic.
  */
 public class GameEngine implements IGameEngine {
-    private ArrayList<Player> players;
+    private ArrayList<IPlayer> players;
     private Market market;
     private Display display;
     private static GameEngine instance;
@@ -25,7 +25,7 @@ public class GameEngine implements IGameEngine {
      *
      * @param players the list of players participating in the game
      */
-    public GameEngine(ArrayList<Player> players) {
+    public GameEngine(ArrayList<IPlayer> players) {
         this.players = players;
         this.display = new Display();
     }
@@ -36,7 +36,7 @@ public class GameEngine implements IGameEngine {
      * @param players the list of players participating in the game
      * @return the single instance of GameEngine
      */
-    public static GameEngine getInstance(ArrayList<Player> players) {
+    public static GameEngine getInstance(ArrayList<IPlayer> players) {
         if (instance == null) {
             instance = new GameEngine(players);
         }
@@ -64,7 +64,7 @@ public class GameEngine implements IGameEngine {
     public void gameLoop() {
         int currentPlayer = (int) (Math.random() * (players.size()));
         boolean keepPlaying = true;
-        Player thisPlayer;
+        IPlayer thisPlayer;
         while (keepPlaying) {
             thisPlayer = players.get(currentPlayer);
             boolean stillAvailableCards = false;
@@ -94,7 +94,7 @@ public class GameEngine implements IGameEngine {
      *
      * @param thisPlayer the player whose turn it is
      */
-    private void handlePlayerTurn(Player thisPlayer) {
+    private void handlePlayerTurn(IPlayer thisPlayer) {
         thisPlayer.sendMessage("\n\n****************************************************************\nIt's your turn! Your hand is:\n");
         thisPlayer.sendMessage(Display.displayHand(thisPlayer.getHand()));
         thisPlayer.sendMessage("\nThe piles are: ");
@@ -115,7 +115,7 @@ public class GameEngine implements IGameEngine {
      *
      * @param thisPlayer the player whose criteria card is being checked
      */
-    private void checkAndHandleCriteriaCard(Player thisPlayer) {
+    private void checkAndHandleCriteriaCard(IPlayer thisPlayer) {
         boolean criteriaCardInHand = false;
         for (ICard card : thisPlayer.getHand()) {
             if (card.getCriteriaSideUp()) {
@@ -148,7 +148,7 @@ public class GameEngine implements IGameEngine {
      * @param pileChoice the choice made by the player
      * @return true if the choice is valid, false otherwise
      */
-    private boolean processPlayerChoice(Player thisPlayer, String pileChoice) {
+    private boolean processPlayerChoice(IPlayer thisPlayer, String pileChoice) {
         if (pileChoice.matches("\\d")) {
             int pileIndex = Integer.parseInt(pileChoice);
             if (pileIndex < 0 || pileIndex >= market.getPiles().size() || market.getPiles().get(pileIndex).getPointCard() == null) {
@@ -174,7 +174,7 @@ public class GameEngine implements IGameEngine {
      * @param pileChoice the choice made by the player
      * @return true if the choice is valid, false otherwise
      */
-    private boolean processVeggieChoice(Player thisPlayer, String pileChoice) {
+    private boolean processVeggieChoice(IPlayer thisPlayer, String pileChoice) {
         int takenVeggies = 0;
         for (int charIndex = 0; charIndex < pileChoice.length(); charIndex++) {
             int choice = Character.toUpperCase(pileChoice.charAt(charIndex)) - 'A';
@@ -205,7 +205,7 @@ public class GameEngine implements IGameEngine {
     public void calculateAndAnnounceScores() {
         int maxScore = 0;
         int playerID = 0;
-        for (Player player : players) {
+        for (IPlayer player : players) {
             player.setScore(VeggieScoreCalculator.calculateScore(player.getHand(), player, players));
             if (player.getScore() > maxScore) {
                 maxScore = player.getScore();
@@ -226,7 +226,7 @@ public class GameEngine implements IGameEngine {
      *
      * @param thisPlayer the bot player whose turn it is
      */
-    private void handleBotTurn(Player thisPlayer) {
+    private void handleBotTurn(IPlayer thisPlayer) {
         boolean emptyPiles = false;
         int choice = (int) (Math.random() * 2);
         if (choice == 0) {
@@ -244,7 +244,7 @@ public class GameEngine implements IGameEngine {
      * @param thisPlayer the bot player
      * @return true if a point card was taken, false otherwise
      */
-    private boolean takeBestPointCard(Player thisPlayer) {
+    private boolean takeBestPointCard(IPlayer thisPlayer) {
         int highestPointCardIndex = 0;
         int highestPointCardScore = 0;
         for (int i = 0; i < market.getPiles().size(); i++) {
@@ -271,7 +271,7 @@ public class GameEngine implements IGameEngine {
      *
      * @param thisPlayer the bot player
      */
-    private void takeVegetableCards(Player thisPlayer) {
+    private void takeVegetableCards(IPlayer thisPlayer) {
         int cardsPicked = 0;
         for (IPile pile : market.getPiles()) {
             if (pile.getVeggieCard(0) != null && cardsPicked < 2) {

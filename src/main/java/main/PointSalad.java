@@ -5,13 +5,14 @@ import java.util.Scanner;
 import pile.Pile;
 import game.GameEngine;
 import network.Server;
+import player.IPlayer;
 
 import player.Player;
 
 import java.util.ArrayList;
 
 public class PointSalad {
-    private ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<IPlayer> players = new ArrayList<>();
     private ArrayList<Pile> Piles;
 
     /**

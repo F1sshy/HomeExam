@@ -2,6 +2,7 @@ package game.logic;
 
 import card.Card;
 import player.Player;
+import player.IPlayer;
 
 import java.util.ArrayList;
 import card.Vegetable;
@@ -15,7 +16,7 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param players The list of all players.
      * @return The total score calculated based on the criteria.
      */
-    public static int calculateScore(ArrayList<Card> hand, Player thisPlayer, ArrayList<Player> players) {
+    public static int calculateScore(ArrayList<Card> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
         int totalScore = 0;
 
         for (Card criteriaCard : hand) {
@@ -53,10 +54,10 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param players The list of all players.
      * @return The score based on the total criteria.
      */
-    private static int handleTotalCriteria(String criteria, ArrayList<Card> hand, Player thisPlayer, ArrayList<Player> players) {
+    private static int handleTotalCriteria(String criteria, ArrayList<Card> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
         int countVeg = CardUtils.countTotalVegetables(hand);
         int thisHandCount = countVeg;
-        for (Player p : players) {
+        for (IPlayer p : players) {
             if (p.getPlayerID() != thisPlayer.getPlayerID()) {
                 int playerVeg = CardUtils.countTotalVegetables(p.getHand());
                 if (criteria.contains("MOST") && playerVeg > countVeg) {
