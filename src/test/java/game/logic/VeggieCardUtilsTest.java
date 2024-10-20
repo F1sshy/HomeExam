@@ -1,5 +1,6 @@
 package game.logic;
 
+import card.ICard;
 import card.VeggieCard;
 import card.Vegetable;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VeggieCardUtilsTest {
 
-    private ArrayList<VeggieCard> hand;
+    private ArrayList<ICard> hand;
     private VeggieCard carrotVeggieCard;
     private VeggieCard cabbageVeggieCard;
     private VeggieCard tomatoVeggieCard;

@@ -2,7 +2,7 @@ package game.logic;
 
 import org.junit.jupiter.api.BeforeEach;
 
-class VeggiePileSetupTest {
+class VeggieVeggiePileSetupTest {
 
     private VeggiePileSetup veggiePileSetup;
 

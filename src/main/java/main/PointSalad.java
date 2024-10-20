@@ -2,18 +2,16 @@ package main;
 
 import java.util.Scanner;
 
-import pile.Pile;
+import pile.VeggiePile;
 import game.GameEngine;
 import network.Server;
 import player.IPlayer;
-
-import player.Player;
 
 import java.util.ArrayList;
 
 public class PointSalad {
     private ArrayList<IPlayer> players = new ArrayList<>();
-    private ArrayList<Pile> Piles;
+    private ArrayList<VeggiePile> veggiePiles;
 
     /**
      * Constructs a PointSalad game with the specified command line arguments.
@@ -24,7 +22,7 @@ public class PointSalad {
         int numberPlayers = 0;
         int numberOfBots = 0;
 
-        this.Piles = Piles;
+        this.veggiePiles = veggiePiles;
 
         if (args.length == 0) {
             System.out.println("Please enter the number of players (1-6): ");

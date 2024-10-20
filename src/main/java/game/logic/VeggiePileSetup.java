@@ -1,6 +1,6 @@
 package game.logic;
 
-import pile.Pile;
+import pile.VeggiePile;
 import card.VeggieCard;
 import card.Vegetable;
 import card.CardFactory;
@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class VeggiePileSetup implements IPileSetup {
 
-    ArrayList<Pile> Piles = new ArrayList<>();
+    ArrayList<VeggiePile> veggiePiles = new ArrayList<>();
 
     /**
      * Sets up the piles based on the number of players.
@@ -109,9 +109,9 @@ public class VeggiePileSetup implements IPileSetup {
             }
         }
 
-        Piles.add(new Pile(pile1));
-        Piles.add(new Pile(pile2));
-        Piles.add(new Pile(pile3));
+        veggiePiles.add(new VeggiePile(pile1));
+        veggiePiles.add(new VeggiePile(pile2));
+        veggiePiles.add(new VeggiePile(pile3));
 
     }
 
@@ -120,8 +120,8 @@ public class VeggiePileSetup implements IPileSetup {
      *
      * @return the piles of cards
      */
-    public ArrayList<Pile> getPiles() {
-        return Piles;
+    public ArrayList<VeggiePile> getPiles() {
+        return veggiePiles;
     }
 
 }

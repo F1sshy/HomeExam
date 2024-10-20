@@ -1,12 +1,11 @@
 package game;
 
 import game.logic.VeggieScoreCalculator;
-import pile.Pile;
+import pile.VeggiePile;
 import player.IPlayer;
 import pile.IPile;
 import java.util.ArrayList;
 import game.logic.VeggiePileSetup;
-import card.*;
 import display.Display;
 import market.Market;
 import game.bothandler.BotHandler;
@@ -36,8 +35,8 @@ public class GameEngine implements IGameEngine {
     public void startGame(String[] args) {
         VeggiePileSetup veggiePileSetup = new VeggiePileSetup();
         veggiePileSetup.setPiles(players.size());
-        ArrayList<Pile> piles = veggiePileSetup.getPiles();
-        this.market = Market.getInstance(piles);
+        ArrayList<VeggiePile> veggiePiles = veggiePileSetup.getPiles();
+        this.market = Market.getInstance(veggiePiles);
         this.playerHandler = new PlayerHandler(market, display);
         this.botHandler = new BotHandler(market, players);
         gameLoop();

@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 
-public class Pile implements IPile {
+public class VeggiePile implements IPile {
     public ArrayList<VeggieCard> veggieCards = new ArrayList<>();
     public VeggieCard[] veggieVeggieCards = new VeggieCard[2];
     private Logger logger = LogManager.getLogger();
@@ -14,7 +14,7 @@ public class Pile implements IPile {
     /**
      * Default constructor for the pile class.
      */
-    public Pile() {}
+    public VeggiePile() {}
 
     /**
      * Constructs a pile with the specified list of cards.
@@ -22,7 +22,7 @@ public class Pile implements IPile {
      *
      * @param veggieCards the list of cards to initialize the pile with
      */
-    public Pile(ArrayList<VeggieCard> veggieCards) {
+    public VeggiePile(ArrayList<VeggieCard> veggieCards) {
         this.veggieCards = veggieCards;
         this.veggieVeggieCards[0] = veggieCards.remove(0);
         this.veggieVeggieCards[1] = veggieCards.remove(0);
@@ -127,5 +127,9 @@ public class Pile implements IPile {
      */
     public int size() {
         return veggieCards.size();
+    }
+
+    public int totalSize() {
+        return veggieCards.size() + veggieVeggieCards.length;
     }
 }

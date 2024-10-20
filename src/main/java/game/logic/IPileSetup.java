@@ -2,10 +2,10 @@ package game.logic;
 
 import java.util.ArrayList;
 
-import pile.Pile;
+import pile.VeggiePile;
 
 public interface IPileSetup {
     void setPiles(int nrPlayers);
-    ArrayList<Pile> getPiles();
+    ArrayList<VeggiePile> getPiles();
 
 }

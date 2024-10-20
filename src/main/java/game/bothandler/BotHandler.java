@@ -35,7 +35,7 @@ public class BotHandler {
         int highestPointCardScore = 0;
         for (int i = 0; i < market.getPiles().size(); i++) {
             if (market.getPiles().get(i).getPointCard() != null) {
-                ArrayList<VeggieCard> tempHand = new ArrayList<>();
+                ArrayList<ICard> tempHand = new ArrayList<>();
                 tempHand.addAll(thisPlayer.getHand());
                 tempHand.add(market.getPiles().get(i).getPointCard());
                 int score = VeggieScoreCalculator.calculateScore(tempHand, thisPlayer, players);

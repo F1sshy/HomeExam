@@ -3,12 +3,12 @@ package display;
 import java.util.ArrayList;
 
 import card.VeggieCard;
-import pile.Pile;
+import pile.VeggiePile;
 
 
 public interface IDisplay {
 
-    String displayMarket(ArrayList<Pile> Piles);
+    String displayMarket(ArrayList<VeggiePile> veggiePiles);
 
     static String displayHand(ArrayList<VeggieCard> hand) {
         return null;

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class pileTest {
 
-    private Pile testPile;
+    private VeggiePile testVeggiePile;
     private VeggieCard veggieCard1;
     private VeggieCard veggieCard2;
     private VeggieCard veggieCard3;
@@ -25,63 +25,87 @@ class pileTest {
         veggieCards.add(veggieCard1);
         veggieCards.add(veggieCard2);
         veggieCards.add(veggieCard3);
-        testPile = new Pile(veggieCards);
+        testVeggiePile = new VeggiePile(veggieCards);
     }
 
     @Test
     void getPointCard() {
-        assertEquals(veggieCard3, testPile.getPointCard());
+        assertSame(veggieCard3, testVeggiePile.getPointCard());
     }
 
     @Test
     void buyPointCard() {
-        assertEquals(veggieCard3, testPile.buyPointCard());
-        assertNull(testPile.getPointCard());
+        assertAll(
+                () -> assertSame(veggieCard3, testVeggiePile.buyPointCard()),
+                () -> assertNull(testVeggiePile.getPointCard())
+        );
+
+
+
     }
 
     @Test
     void isEmpty() {
-        assertFalse(testPile.isEmpty());
-        testPile.buyPointCard();
-        testPile.buyVeggieCard(0);
-        testPile.buyVeggieCard(1);
-        assertTrue(testPile.isEmpty());
+        assertFalse(testVeggiePile.isEmpty());
+        testVeggiePile.buyPointCard();
+        testVeggiePile.buyVeggieCard(0);
+        testVeggiePile.buyVeggieCard(1);
+        assertTrue(testVeggiePile.isEmpty());
     }
 
     @Test
     void areAnyVeggieCardsEmpty() {
-        assertFalse(testPile.areAnyVeggieCardsEmpty());
-        testPile.buyVeggieCard(0);
-        assertTrue(testPile.areAnyVeggieCardsEmpty());
+        assertAll(
+                () -> assertFalse(testVeggiePile.areAnyVeggieCardsEmpty()),
+                () -> testVeggiePile.buyVeggieCard(0),
+                () -> testVeggiePile.buyVeggieCard(0),
+                () -> testVeggiePile.buyVeggieCard(0),
+                () -> assertTrue(testVeggiePile.areAnyVeggieCardsEmpty())
+        );
     }
 
     @Test
     void getVeggieCard() {
-        assertEquals(veggieCard1, testPile.getVeggieCard(0));
-        assertEquals(veggieCard2, testPile.getVeggieCard(1));
+        assertAll(
+                () -> assertSame(veggieCard1, testVeggiePile.getVeggieCard(0)),
+                () -> assertSame(veggieCard2, testVeggiePile.getVeggieCard(1))
+        );
+
     }
 
     @Test
     void buyVeggieCard() {
-        assertEquals(veggieCard1, testPile.buyVeggieCard(0));
-        assertNull(testPile.getVeggieCard(0));
+        assertAll(
+                () -> assertSame(veggieCard1, testVeggiePile.buyVeggieCard(0)),
+                () -> assertSame(veggieCard2, testVeggiePile.getVeggieCard(1))
+        );
+
     }
 
     @Test
     void addCard() {
         VeggieCard newVeggieCard = new VeggieCard(Vegetable.LETTUCE, "Criteria4");
-        testPile.addCard(newVeggieCard);
-        assertEquals(newVeggieCard, testPile.getPointCard());
+        testVeggiePile.addCard(newVeggieCard);
+        testVeggiePile.buyVeggieCard(0);
+        assertSame(newVeggieCard, testVeggiePile.getPointCard());
+    }
+
+    @Test
+    void addCardToEmpty() {
+        VeggieCard newVeggieCard = new VeggieCard(Vegetable.LETTUCE, "Criteria4");
+        testVeggiePile.buyPointCard();
+        testVeggiePile.addCard(newVeggieCard);
+        assertSame(newVeggieCard, testVeggiePile.getPointCard());
     }
 
     @Test
     void removeCard() {
-        assertEquals(veggieCard3, testPile.removeCard());
-        assertNull(testPile.getPointCard());
+        var card = testVeggiePile.removeCard();
+        assertNotSame(card, testVeggiePile.getPointCard());
     }
 
     @Test
     void size() {
-        assertEquals(1, testPile.size());
+        assertEquals(1, testVeggiePile.size());
     }
 }
