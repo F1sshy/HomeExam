@@ -1,6 +1,6 @@
 package pile;
 
-import card.Card;
+import card.VeggieCard;
 import card.Vegetable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,30 +12,30 @@ import static org.junit.jupiter.api.Assertions.*;
 class pileTest {
 
     private Pile testPile;
-    private Card card1;
-    private Card card2;
-    private Card card3;
+    private VeggieCard veggieCard1;
+    private VeggieCard veggieCard2;
+    private VeggieCard veggieCard3;
 
     @BeforeEach
     void setUp() {
-        card1 = new Card(Vegetable.CARROT, "Criteria1");
-        card2 = new Card(Vegetable.CABBAGE, "Criteria2");
-        card3 = new Card(Vegetable.TOMATO, "Criteria3");
-        ArrayList<Card> Cards = new ArrayList<>();
-        Cards.add(card1);
-        Cards.add(card2);
-        Cards.add(card3);
-        testPile = new Pile(Cards);
+        veggieCard1 = new VeggieCard(Vegetable.CARROT, "Criteria1");
+        veggieCard2 = new VeggieCard(Vegetable.CABBAGE, "Criteria2");
+        veggieCard3 = new VeggieCard(Vegetable.TOMATO, "Criteria3");
+        ArrayList<VeggieCard> veggieCards = new ArrayList<>();
+        veggieCards.add(veggieCard1);
+        veggieCards.add(veggieCard2);
+        veggieCards.add(veggieCard3);
+        testPile = new Pile(veggieCards);
     }
 
     @Test
     void getPointCard() {
-        assertEquals(card3, testPile.getPointCard());
+        assertEquals(veggieCard3, testPile.getPointCard());
     }
 
     @Test
     void buyPointCard() {
-        assertEquals(card3, testPile.buyPointCard());
+        assertEquals(veggieCard3, testPile.buyPointCard());
         assertNull(testPile.getPointCard());
     }
 
@@ -57,26 +57,26 @@ class pileTest {
 
     @Test
     void getVeggieCard() {
-        assertEquals(card1, testPile.getVeggieCard(0));
-        assertEquals(card2, testPile.getVeggieCard(1));
+        assertEquals(veggieCard1, testPile.getVeggieCard(0));
+        assertEquals(veggieCard2, testPile.getVeggieCard(1));
     }
 
     @Test
     void buyVeggieCard() {
-        assertEquals(card1, testPile.buyVeggieCard(0));
+        assertEquals(veggieCard1, testPile.buyVeggieCard(0));
         assertNull(testPile.getVeggieCard(0));
     }
 
     @Test
     void addCard() {
-        Card newCard = new Card(Vegetable.LETTUCE, "Criteria4");
-        testPile.addCard(newCard);
-        assertEquals(newCard, testPile.getPointCard());
+        VeggieCard newVeggieCard = new VeggieCard(Vegetable.LETTUCE, "Criteria4");
+        testPile.addCard(newVeggieCard);
+        assertEquals(newVeggieCard, testPile.getPointCard());
     }
 
     @Test
     void removeCard() {
-        assertEquals(card3, testPile.removeCard());
+        assertEquals(veggieCard3, testPile.removeCard());
         assertNull(testPile.getPointCard());
     }
 

@@ -1,6 +1,6 @@
 package display;
 
-import card.Card;
+import card.VeggieCard;
 import pile.Pile;
 import game.logic.CardUtils;
 import card.Vegetable;
@@ -15,7 +15,7 @@ public class Display implements IDisplay {
      * @param hand the player's hand of cards
      * @return a string representation of the player's hand
      */
-    public static String displayHand(ArrayList<Card> hand) {
+    public static String displayHand(ArrayList<VeggieCard> hand) {
         StringBuilder handString = new StringBuilder("Criteria:\t");
         for (int i = 0; i < hand.size(); i++) {
             if (hand.get(i).criteriaSideUp && hand.get(i).getVegetable() != null) {

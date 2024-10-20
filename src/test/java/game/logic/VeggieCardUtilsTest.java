@@ -1,6 +1,6 @@
 package game.logic;
 
-import card.Card;
+import card.VeggieCard;
 import card.Vegetable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,27 +9,27 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CardUtilsTest {
+class VeggieCardUtilsTest {
 
-    private ArrayList<Card> hand;
-    private Card carrotCard;
-    private Card cabbageCard;
-    private Card tomatoCard;
+    private ArrayList<VeggieCard> hand;
+    private VeggieCard carrotVeggieCard;
+    private VeggieCard cabbageVeggieCard;
+    private VeggieCard tomatoVeggieCard;
 
     @BeforeEach
     void setUp() {
         hand = new ArrayList<>();
-        carrotCard = new Card(Vegetable.CARROT, "Criteria1");
-        cabbageCard = new Card(Vegetable.CABBAGE, "Criteria2");
-        tomatoCard = new Card(Vegetable.TOMATO, "Criteria3");
+        carrotVeggieCard = new VeggieCard(Vegetable.CARROT, "Criteria1");
+        cabbageVeggieCard = new VeggieCard(Vegetable.CABBAGE, "Criteria2");
+        tomatoVeggieCard = new VeggieCard(Vegetable.TOMATO, "Criteria3");
 
-        carrotCard.criteriaSideUp = false;
-        cabbageCard.criteriaSideUp = false;
-        tomatoCard.criteriaSideUp = false;
+        carrotVeggieCard.criteriaSideUp = false;
+        cabbageVeggieCard.criteriaSideUp = false;
+        tomatoVeggieCard.criteriaSideUp = false;
 
-        hand.add(carrotCard);
-        hand.add(cabbageCard);
-        hand.add(tomatoCard);
+        hand.add(carrotVeggieCard);
+        hand.add(cabbageVeggieCard);
+        hand.add(tomatoVeggieCard);
     }
 
     @Test

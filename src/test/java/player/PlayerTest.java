@@ -1,6 +1,6 @@
 package player;
 
-import card.Card;
+import card.VeggieCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import card.Vegetable;
@@ -36,18 +36,18 @@ class PlayerTest {
     @Test
     void getHand() {
         assertTrue(player.getHand().isEmpty());
-        Card newCard = new Card(Vegetable.CARROT, "Criteria1");
-        player.addCardToHand(newCard);
+        VeggieCard newVeggieCard = new VeggieCard(Vegetable.CARROT, "Criteria1");
+        player.addCardToHand(newVeggieCard);
         assertEquals(1, player.getHand().size());
-        assertEquals(newCard, player.getHand().get(0));
+        assertEquals(newVeggieCard, player.getHand().get(0));
     }
 
     @Test
     void addCardToHand() {
-        Card newCard = new Card(Vegetable.CARROT, "Criteria1");
-        player.addCardToHand(newCard);
+        VeggieCard newVeggieCard = new VeggieCard(Vegetable.CARROT, "Criteria1");
+        player.addCardToHand(newVeggieCard);
         assertEquals(1, player.getHand().size());
-        assertEquals(newCard, player.getHand().get(0));
+        assertEquals(newVeggieCard, player.getHand().get(0));
     }
 
     @Test

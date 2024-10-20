@@ -1,7 +1,6 @@
 package game.logic;
 
-import card.Card;
-import player.Player;
+import card.VeggieCard;
 import player.IPlayer;
 
 import java.util.ArrayList;
@@ -16,12 +15,12 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param players The list of all players.
      * @return The total score calculated based on the criteria.
      */
-    public static int calculateScore(ArrayList<Card> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
+    public static int calculateScore(ArrayList<VeggieCard> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
         int totalScore = 0;
 
-        for (Card criteriaCard : hand) {
-            if (criteriaCard.criteriaSideUp) {
-                String criteria = criteriaCard.criteria;
+        for (VeggieCard criteriaVeggieCard : hand) {
+            if (criteriaVeggieCard.criteriaSideUp) {
+                String criteria = criteriaVeggieCard.criteria;
                 System.out.println("Evaluating criteria: " + criteria);
 
                 if (criteria.contains("TOTAL")) {
@@ -54,7 +53,7 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param players The list of all players.
      * @return The score based on the total criteria.
      */
-    private static int handleTotalCriteria(String criteria, ArrayList<Card> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
+    private static int handleTotalCriteria(String criteria, ArrayList<VeggieCard> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
         int countVeg = CardUtils.countTotalVegetables(hand);
         int thisHandCount = countVeg;
         for (IPlayer p : players) {
@@ -81,7 +80,7 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param hand The player's hand.
      * @return The score based on the type criteria.
      */
-    private static int handleTypeCriteria(String criteria, ArrayList<Card> hand) {
+    private static int handleTypeCriteria(String criteria, ArrayList<VeggieCard> hand) {
         String[] expr = criteria.split("/");
         int addScore = Integer.parseInt(expr[0].trim());
         if (expr[1].contains("MISSING")) {
@@ -110,7 +109,7 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param hand The player's hand.
      * @return The score based on the set criteria.
      */
-    private static int handleSetCriteria(ArrayList<Card> hand) {
+    private static int handleSetCriteria(ArrayList<VeggieCard> hand) {
         int addScore = 12;
         for (Vegetable vegetable : Vegetable.values()) {
             if (CardUtils.countVegetables(hand, vegetable) == 0) {
@@ -128,7 +127,7 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param hand The player's hand.
      * @return The score based on the even/odd criteria.
      */
-    private static int handleEvenOddCriteria(String criteria, ArrayList<Card> hand) {
+    private static int handleEvenOddCriteria(String criteria, ArrayList<VeggieCard> hand) {
         String[] parts = criteria.split(":");
         String[] scores = parts[1].split(",");
         int evenScore = Integer.parseInt(scores[0].split("=")[1].trim());
@@ -144,7 +143,7 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param hand The player's hand.
      * @return The score based on the addition criteria.
      */
-    private static int handleAdditionCriteria(String criteria, ArrayList<Card> hand) {
+    private static int handleAdditionCriteria(String criteria, ArrayList<VeggieCard> hand) {
         String[] parts = criteria.split("\\+");
         int scoreToAdd = Integer.parseInt(parts[1].split("=")[1].trim());
         String[] veggies = parts[0].split(" ");
@@ -177,7 +176,7 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param hand The player's hand.
      * @return The score based on the division criteria.
      */
-    private static int handleDivisionCriteria(String criteria, ArrayList<Card> hand) {
+    private static int handleDivisionCriteria(String criteria, ArrayList<VeggieCard> hand) {
         String[] parts = criteria.split("/");
         int scorePerUnit = Integer.parseInt(parts[0].trim());
         String vegType = parts[1].trim();
@@ -192,7 +191,7 @@ public class VeggieScoreCalculator implements IScoreCalculator {
      * @param hand The player's hand.
      * @return The score based on the subtraction criteria.
      */
-    private static int handleSubtractionCriteria(String criteria, ArrayList<Card> hand) {
+    private static int handleSubtractionCriteria(String criteria, ArrayList<VeggieCard> hand) {
         String[] parts = criteria.split("-");
         int scorePerUnit = Integer.parseInt(parts[0].trim());
         String vegType = parts[1].trim();

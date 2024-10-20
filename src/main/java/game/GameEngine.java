@@ -3,7 +3,6 @@ package game;
 import game.logic.VeggieScoreCalculator;
 import pile.Pile;
 import player.IPlayer;
-import player.Player;
 import pile.IPile;
 import java.util.ArrayList;
 import game.logic.VeggiePileSetup;
@@ -249,7 +248,7 @@ public class GameEngine implements IGameEngine {
         int highestPointCardScore = 0;
         for (int i = 0; i < market.getPiles().size(); i++) {
             if (market.getPiles().get(i).getPointCard() != null) {
-                ArrayList<Card> tempHand = new ArrayList<>();
+                ArrayList<VeggieCard> tempHand = new ArrayList<>();
                 tempHand.addAll(thisPlayer.getHand());
                 tempHand.add(market.getPiles().get(i).getPointCard());
                 int score = VeggieScoreCalculator.calculateScore(tempHand, thisPlayer, players);

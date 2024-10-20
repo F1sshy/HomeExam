@@ -7,37 +7,37 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class cardTest {
 
-    private Card card;
+    private VeggieCard veggieCard;
 
     @BeforeEach
     void setUp() {
-        card = new Card(Vegetable.CARROT, "TEST");
+        veggieCard = new VeggieCard(Vegetable.CARROT, "TEST");
 
     }
 
     @Test
     void testToString() {
-        assertEquals("TEST (CARROT)", card.toString());
+        assertEquals("TEST (CARROT)", veggieCard.toString());
     }
 
     @Test
     void getCriteriaSideUp() {
-        assertEquals(true, card.getCriteriaSideUp());
+        assertEquals(true, veggieCard.getCriteriaSideUp());
     }
 
     @Test
     void getVegetable() {
-        assertEquals(Vegetable.CARROT, card.getVegetable());
+        assertEquals(Vegetable.CARROT, veggieCard.getVegetable());
     }
 
     @Test
     void getCriteria() {
-        assertEquals("TEST", card.getCriteria());
+        assertEquals("TEST", veggieCard.getCriteria());
     }
 
     @Test
     void setCriteriaSideUp() {
-        card.setCriteriaSideUp(false);
-        assertEquals(false, card.getCriteriaSideUp());
+        veggieCard.setCriteriaSideUp(false);
+        assertEquals(false, veggieCard.getCriteriaSideUp());
     }
 }

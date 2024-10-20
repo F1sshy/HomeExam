@@ -1,7 +1,7 @@
 package market;
 
 import java.util.ArrayList;
-import card.Card;
+import card.VeggieCard;
 import pile.Pile;
 
 public class Market implements IMarket {
@@ -32,18 +32,18 @@ public class Market implements IMarket {
         for (int i = 0; i < Piles.size(); i++) {
             Pile p = Piles.get(i);
             if (p.isEmpty()) {
-                Card newCard = drawCardFromLargestPile();
-                if (newCard != null) {
-                    p.addCard(newCard);
+                VeggieCard newVeggieCard = drawCardFromLargestPile();
+                if (newVeggieCard != null) {
+                    p.addCard(newVeggieCard);
                 }
             }
             if (p.areAnyVeggieCardsEmpty()) {
-                for (int j = 0; j < p.veggieCards.length; j++) {
-                    if (p.veggieCards[j] == null) {
-                        Card newVeggieCard = drawCardFromLargestPile();
-                        if (newVeggieCard != null) {
-                            p.veggieCards[j] = newVeggieCard;
-                            p.veggieCards[j].criteriaSideUp = false;
+                for (int j = 0; j < p.veggieVeggieCards.length; j++) {
+                    if (p.veggieVeggieCards[j] == null) {
+                        VeggieCard newVeggieVeggieCard = drawCardFromLargestPile();
+                        if (newVeggieVeggieCard != null) {
+                            p.veggieVeggieCards[j] = newVeggieVeggieCard;
+                            p.veggieVeggieCards[j].criteriaSideUp = false;
                         }
                     }
                 }
@@ -56,7 +56,7 @@ public class Market implements IMarket {
      *
      * @return the drawn card, or null if no card can be drawn
      */
-    private Card drawCardFromLargestPile() {
+    private VeggieCard drawCardFromLargestPile() {
         if (Piles == null) return null;
         int largestPileIndex = -1;
         int largestSize = 0;

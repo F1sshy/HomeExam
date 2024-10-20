@@ -1,7 +1,7 @@
 package game.logic;
 
 import pile.Pile;
-import card.Card;
+import card.VeggieCard;
 import card.Vegetable;
 import card.CardFactory;
 import org.json.JSONArray;
@@ -24,7 +24,7 @@ public class VeggiePileSetup implements IPileSetup {
      * @param nrPlayers the number of players
      */
     public void setPiles(int nrPlayers) {
-        ArrayList<Card> deck = createDeck(nrPlayers);
+        ArrayList<VeggieCard> deck = createDeck(nrPlayers);
         shuffleDeck(deck);
         divideDeckIntoPiles(deck);
     }
@@ -35,14 +35,14 @@ public class VeggiePileSetup implements IPileSetup {
      * @param nrPlayers the number of players
      * @return the created deck of cards
      */
-    private ArrayList<Card> createDeck(int nrPlayers) {
-        ArrayList<Card> deck = new ArrayList<>();
-        ArrayList<Card> deckPepper = new ArrayList<>();
-        ArrayList<Card> deckLettuce = new ArrayList<>();
-        ArrayList<Card> deckCarrot = new ArrayList<>();
-        ArrayList<Card> deckCabbage = new ArrayList<>();
-        ArrayList<Card> deckOnion = new ArrayList<>();
-        ArrayList<Card> deckTomato = new ArrayList<>();
+    private ArrayList<VeggieCard> createDeck(int nrPlayers) {
+        ArrayList<VeggieCard> deck = new ArrayList<>();
+        ArrayList<VeggieCard> deckPepper = new ArrayList<>();
+        ArrayList<VeggieCard> deckLettuce = new ArrayList<>();
+        ArrayList<VeggieCard> deckCarrot = new ArrayList<>();
+        ArrayList<VeggieCard> deckCabbage = new ArrayList<>();
+        ArrayList<VeggieCard> deckOnion = new ArrayList<>();
+        ArrayList<VeggieCard> deckTomato = new ArrayList<>();
 
         try (InputStream fInputStream = new FileInputStream("src/main/resources/PointSaladManifest.json");
              Scanner scanner = new Scanner(fInputStream, "UTF-8").useDelimiter("\\A")) {
@@ -85,7 +85,7 @@ public class VeggiePileSetup implements IPileSetup {
      *
      * @param deck the deck of cards to be shuffled
      */
-    private void shuffleDeck(ArrayList<Card> deck) {
+    private void shuffleDeck(ArrayList<VeggieCard> deck) {
         Collections.shuffle(deck);
     }
 
@@ -94,10 +94,10 @@ public class VeggiePileSetup implements IPileSetup {
      *
      * @param deck the deck of cards to be divided
      */
-    private void divideDeckIntoPiles(ArrayList<Card> deck) {
-        ArrayList<Card> pile1 = new ArrayList<>();
-        ArrayList<Card> pile2 = new ArrayList<>();
-        ArrayList<Card> pile3 = new ArrayList<>();
+    private void divideDeckIntoPiles(ArrayList<VeggieCard> deck) {
+        ArrayList<VeggieCard> pile1 = new ArrayList<>();
+        ArrayList<VeggieCard> pile2 = new ArrayList<>();
+        ArrayList<VeggieCard> pile3 = new ArrayList<>();
 
         for (int i = 0; i < deck.size(); i++) {
             if (i % 3 == 0) {

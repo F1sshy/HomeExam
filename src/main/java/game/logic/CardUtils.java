@@ -1,6 +1,6 @@
 package game.logic;
 
-import card.Card;
+import card.VeggieCard;
 import card.Vegetable;
 
 import java.util.ArrayList;
@@ -14,10 +14,10 @@ public class CardUtils {
      * @param vegetable the vegetable type to count
      * @return the count of specified vegetable cards
      */
-    public static int countVegetables(ArrayList<Card> hand, Vegetable vegetable) {
+    public static int countVegetables(ArrayList<VeggieCard> hand, Vegetable vegetable) {
         int count = 0;
-        for (Card card : hand) {
-            if (!card.criteriaSideUp && card.getVegetable() == vegetable) {
+        for (VeggieCard veggieCard : hand) {
+            if (!veggieCard.criteriaSideUp && veggieCard.getVegetable() == vegetable) {
                 count++;
             }
         }
@@ -30,10 +30,10 @@ public class CardUtils {
      * @param hand the player's hand of cards
      * @return the total count of vegetable cards
      */
-    public static int countTotalVegetables(ArrayList<Card> hand) {
+    public static int countTotalVegetables(ArrayList<VeggieCard> hand) {
         int count = 0;
-        for (Card card : hand) {
-            if (!card.criteriaSideUp) {
+        for (VeggieCard veggieCard : hand) {
+            if (!veggieCard.criteriaSideUp) {
                 count++;
             }
         }
