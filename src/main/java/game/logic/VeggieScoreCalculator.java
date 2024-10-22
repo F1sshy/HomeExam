@@ -1,21 +1,13 @@
 package game.logic;
 
 import card.ICard;
-import card.VeggieCard;
+import card.Vegetable;
 import player.IPlayer;
 
 import java.util.ArrayList;
-import card.Vegetable;
 
 public class VeggieScoreCalculator implements IScoreCalculator {
-    /**
-     * Calculates the total score for a player's hand based on various criteria.
-     *
-     * @param hand The player's hand containing cards.
-     * @param thisPlayer The current player.
-     * @param players The list of all players.
-     * @return The total score calculated based on the criteria.
-     */
+
     public static int calculateScore(ArrayList<ICard> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
         int totalScore = 0;
 
@@ -32,28 +24,22 @@ public class VeggieScoreCalculator implements IScoreCalculator {
                     totalScore += handleSetCriteria(hand);
                 } else if (criteria.contains("EVEN") || criteria.contains("ODD")) {
                     totalScore += handleEvenOddCriteria(criteria, hand);
-                } else if (criteria.contains("+")) {
+                }else if (criteria.contains(",")) {
+                    totalScore += handleComplexCriteria(criteria, hand);
+                }else if (criteria.contains("+")) {
                     totalScore += handleAdditionCriteria(criteria, hand);
                 } else if (criteria.contains("/")) {
                     totalScore += handleDivisionCriteria(criteria, hand);
                 } else if (criteria.contains("-")) {
                     totalScore += handleSubtractionCriteria(criteria, hand);
                 }
+                }
             }
-        }
+
         System.out.println("Total score: " + totalScore);
         return totalScore;
     }
 
-    /**
-     * Handles the criteria that involve the total number of vegetables.
-     *
-     * @param criteria The criteria string.
-     * @param hand The player's hand.
-     * @param thisPlayer The current player.
-     * @param players The list of all players.
-     * @return The score based on the total criteria.
-     */
     private static int handleTotalCriteria(String criteria, ArrayList<ICard> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
         int countVeg = CardUtils.countTotalVegetables(hand);
         int thisHandCount = countVeg;
@@ -104,12 +90,6 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         }
     }
 
-    /**
-     * Handles the criteria that involve having a complete set of vegetables.
-     *
-     * @param hand The player's hand.
-     * @return The score based on the set criteria.
-     */
     protected static int handleSetCriteria(ArrayList<ICard> hand) {
         int addScore = 12;
         for (Vegetable vegetable : Vegetable.values()) {
@@ -121,13 +101,6 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return addScore;
     }
 
-    /**
-     * Handles the criteria that involve even or odd counts of vegetables.
-     *
-     * @param criteria The criteria string.
-     * @param hand The player's hand.
-     * @return The score based on the even/odd criteria.
-     */
     protected static int handleEvenOddCriteria(String criteria, ArrayList<ICard> hand) {
         String[] parts = criteria.split(":");
         String[] scores = parts[1].split(",");
@@ -137,13 +110,6 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return (count % 2 == 0) ? evenScore : oddScore;
     }
 
-    /**
-     * Handles the criteria that involve addition of specific vegetables.
-     *
-     * @param criteria The criteria string.
-     * @param hand The player's hand.
-     * @return The score based on the addition criteria.
-     */
     protected static int handleAdditionCriteria(String criteria, ArrayList<ICard> hand) {
         String[] parts = criteria.split("\\+");
         int scoreToAdd = Integer.parseInt(parts[1].split("=")[1].trim());
@@ -170,13 +136,6 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return totalScore;
     }
 
-    /**
-     * Handles the criteria that involve division of specific vegetables.
-     *
-     * @param criteria The criteria string.
-     * @param hand The player's hand.
-     * @return The score based on the division criteria.
-     */
     protected static int handleDivisionCriteria(String criteria, ArrayList<ICard> hand) {
         String[] parts = criteria.split("/");
         int scorePerUnit = Integer.parseInt(parts[0].trim());
@@ -185,18 +144,46 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return scorePerUnit * count;
     }
 
-    /**
-     * Handles the criteria that involve subtraction of specific vegetables.
-     *
-     * @param criteria The criteria string.
-     * @param hand The player's hand.
-     * @return The score based on the subtraction criteria.
-     */
     protected static int handleSubtractionCriteria(String criteria, ArrayList<ICard> hand) {
-        String[] parts = criteria.split("-");
-        int scorePerUnit = Integer.parseInt(parts[0].trim());
-        String vegType = parts[1].trim();
-        int count = CardUtils.countVegetables(hand, Vegetable.valueOf(vegType));
-        return -scorePerUnit * count;
+        String[] parts = criteria.split(",");
+        int totalScore = 0;
+
+        for (String part : parts) {
+            String[] subParts = part.split("/");
+            if (subParts.length < 2) {
+                System.err.println("Invalid criteria format: " + part);
+                continue;
+            }
+            try {
+                int scorePerUnit = Integer.parseInt(subParts[0].trim());
+                String vegType = subParts[1].trim();
+                int count = CardUtils.countVegetables(hand, Vegetable.valueOf(vegType));
+                totalScore += scorePerUnit * count;
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid number format in criteria: " + part);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Invalid vegetable type: " + subParts[1].trim());
+            }
+        }
+
+        return totalScore;
+    }
+
+    protected static int handleComplexCriteria(String criteria, ArrayList<ICard> hand) {
+        int score = 0;
+        String[] criteriaParts = criteria.split(",");
+        for (String part : criteriaParts) {
+            part = part.trim();
+            if (part.contains("/")) {
+                score += handleDivisionCriteria(part, hand);
+            } else if (part.contains("-")) {
+                score += handleSubtractionCriteria(part, hand);
+            } else if (part.contains("+")) {
+                score += handleAdditionCriteria(part, hand);
+            } else if (part.contains(":")) {
+                score += handleEvenOddCriteria(part, hand);
+            }
+        }
+        return score;
     }
 }

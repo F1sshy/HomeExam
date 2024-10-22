@@ -32,6 +32,18 @@ class VeggieScoreCalculatorTest {
         VeggieCard cabbageCard2 = new VeggieCard(Vegetable.CABBAGE, "Criteria4");
         cabbageCard2.setCriteriaSideUp(false);
         hand.add(cabbageCard2);
+
+        VeggieCard criteCard1 = new VeggieCard(Vegetable.TOMATO, "CARROT + CABBAGE = 4");
+        hand.add(criteCard1);
+
+        VeggieCard criteCard2 = new VeggieCard(Vegetable.TOMATO, " TOMATO: EVEN=10, ODD=5");
+        hand.add(criteCard2);
+
+        VeggieCard criteCard3 = new VeggieCard(Vegetable.TOMATO, "3 / CABBAGE, -2 / TOMATO");
+        hand.add(criteCard3);
+
+
+
     }
 
     @Test
@@ -63,8 +75,14 @@ class VeggieScoreCalculatorTest {
 
     @Test
     void testHandleSubtractionCriteria() {
-        String criteria = "2 - TOMATO";
+        String criteria = "-2 / TOMATO";
         int score = VeggieScoreCalculator.handleSubtractionCriteria(criteria, hand);
         assertEquals(-2, score); // Assuming 1 TOMATO
+    }
+
+    @Test
+    void testHandleComplexCriteria() {
+        int score = VeggieScoreCalculator.calculateScore(hand, null, null);
+        assertEquals(13, score); // Assuming 1 CARROT, 1 CABBAGE, 1 TOMATO
     }
 }
