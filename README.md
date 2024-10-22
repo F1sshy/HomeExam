@@ -1,4 +1,3 @@
-Thank you for the clarification! Based on your input, here's the revised **README** to reflect that the game is always online and correct the instructions for starting the server and clients:
 
 ---
 
@@ -43,16 +42,8 @@ To run the game, you will need:
 
 ## Setup Instructions
 
-### 1. Cloning the Repository
 
-To get started, clone this repository to your local machine:
-
-```bash
-git clone https://github.com/yourusername/PointSalad.git
-cd PointSalad
-```
-
-### 2. Building the Project
+### Building the Project
 
 If you are using an IDE like IntelliJ IDEA or Eclipse, you can import the project by selecting the folder and opening it as a Java project. Ensure that your IDE is set to use **Java 11 or higher**.
 
