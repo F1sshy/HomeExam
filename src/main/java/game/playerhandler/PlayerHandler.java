@@ -16,6 +16,10 @@ public class PlayerHandler {
         this.display = display;
     }
 
+    /**
+     * Handles the turn of the player
+     * @param thisPlayer the player whose turn it is
+     */
     public void handlePlayerTurn(IPlayer thisPlayer) {
         PlayerCommunication communication = thisPlayer.getCommunication();
         communication.sendMessage("\n\n****************************************************************\nIt's your turn! Your hand is:\n");
@@ -32,6 +36,10 @@ public class PlayerHandler {
         communication.sendMessage("\nYour turn is completed\n****************************************************************\n\n");
     }
 
+    /**
+     * Checks if the player has a criteria card in hand and prompts the player to turn it into a veggie card
+     * @param thisPlayer the player whose turn it is
+     */
     private void checkAndHandleCriteriaCard(IPlayer thisPlayer) {
         PlayerCommunication communication = thisPlayer.getCommunication();
         boolean criteriaCardInHand = false;
@@ -57,6 +65,12 @@ public class PlayerHandler {
         }
     }
 
+    /**
+     * Processes the player's choice of taking a point card or vegetable cards
+     * @param thisPlayer the player whose turn it is
+     * @param pileChoice the choice made by the player
+     * @return true if the choice was valid, false otherwise
+     */
     private boolean processPlayerChoice(IPlayer thisPlayer, String pileChoice) {
         PlayerCommunication communication = thisPlayer.getCommunication();
         if (pileChoice.matches("\\d")) {
@@ -77,6 +91,12 @@ public class PlayerHandler {
         }
     }
 
+    /**
+     * Processes the player's choice of taking vegetable cards
+     * @param thisPlayer the player whose turn it is
+     * @param pileChoice the choice made by the player
+     * @return true if the choice was valid, false otherwise
+     */
     private boolean processVeggieChoice(IPlayer thisPlayer, String pileChoice) {
         PlayerCommunication communication = thisPlayer.getCommunication();
         int takenVeggies = 0;

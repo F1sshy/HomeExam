@@ -10,7 +10,6 @@ import display.Display;
 import market.VeggieMarket;
 import game.bothandler.BotHandler;
 import game.playerhandler.PlayerHandler;
-import player.Player;
 import player.PlayerCommunication;
 
 public class GameEngine implements IGameEngine {

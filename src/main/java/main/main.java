@@ -1,8 +1,10 @@
 package main;
 
 import network.Client;
-import java.util.ArrayList;
 
+/**
+ * The main class is the entry point for the application.
+ */
 public class main {
     public static void main(String[] args) {
         try {

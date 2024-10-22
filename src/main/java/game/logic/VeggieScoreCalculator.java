@@ -6,8 +6,19 @@ import player.IPlayer;
 
 import java.util.ArrayList;
 
+/**
+ * The VeggieScoreCalculator class is responsible for calculating the score of a player's hand based on the criteria of the vegetable cards.
+ */
 public class VeggieScoreCalculator implements IScoreCalculator {
 
+    /**
+     * Calculates the score of a player's hand based on the criteria of the vegetable cards.
+     *
+     * @param hand The player's hand.
+     * @param thisPlayer The player whose hand is being evaluated.
+     * @param players The list of all players in the game.
+     * @return The total score of the player's hand.
+     */
     public static int calculateScore(ArrayList<ICard> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
         int totalScore = 0;
 
@@ -40,6 +51,15 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return totalScore;
     }
 
+    /**
+     * Handles the criteria that involve the total number of vegetables in the player's hand.
+     *
+     * @param criteria The criteria string.
+     * @param hand The player's hand.
+     * @param thisPlayer The player whose hand is being evaluated.
+     * @param players The list of all players in the game.
+     * @return The score based on the total criteria.
+     */
     private static int handleTotalCriteria(String criteria, ArrayList<ICard> hand, IPlayer thisPlayer, ArrayList<IPlayer> players) {
         int countVeg = CardUtils.countTotalVegetables(hand);
         int thisHandCount = countVeg;
@@ -90,6 +110,12 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         }
     }
 
+    /**
+     * Handles the criteria that involve the set of all vegetable types.
+     *
+     * @param hand The player's hand.
+     * @return The score based on the set criteria.
+     */
     protected static int handleSetCriteria(ArrayList<ICard> hand) {
         int addScore = 12;
         for (Vegetable vegetable : Vegetable.values()) {
@@ -101,6 +127,13 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return addScore;
     }
 
+    /**
+     * Handles the criteria that involve even or odd counts of a specific vegetable type.
+     *
+     * @param criteria The criteria string.
+     * @param hand The player's hand.
+     * @return The score based on the even/odd criteria.
+     */
     protected static int handleEvenOddCriteria(String criteria, ArrayList<ICard> hand) {
         String[] parts = criteria.split(":");
         String[] scores = parts[1].split(",");
@@ -110,6 +143,14 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return (count % 2 == 0) ? evenScore : oddScore;
     }
 
+
+    /**
+     * Handles the criteria that involve addition of scores based on the count of specific vegetable types.
+     *
+     * @param criteria The criteria string.
+     * @param hand The player's hand.
+     * @return The score based on the addition criteria.
+     */
     protected static int handleAdditionCriteria(String criteria, ArrayList<ICard> hand) {
         String[] parts = criteria.split("=");
         if (parts.length < 2) {
@@ -147,6 +188,13 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return scoreToAdd * minCount;
     }
 
+    /**
+     * Handles the criteria that involve division of scores based on the count of specific vegetable types.
+     *
+     * @param criteria The criteria string.
+     * @param hand The player's hand.
+     * @return The score based on the division criteria.
+     */
     protected static int handleDivisionCriteria(String criteria, ArrayList<ICard> hand) {
         String[] parts = criteria.split("/");
         int scorePerUnit = Integer.parseInt(parts[0].trim());
@@ -155,6 +203,13 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return scorePerUnit * count;
     }
 
+    /**
+     * Handles the criteria that involve subtraction of scores based on the count of specific vegetable types.
+     *
+     * @param criteria The criteria string.
+     * @param hand The player's hand.
+     * @return The score based on the subtraction criteria.
+     */
     protected static int handleSubtractionCriteria(String criteria, ArrayList<ICard> hand) {
         String[] parts = criteria.split(",");
         int totalScore = 0;
@@ -180,6 +235,13 @@ public class VeggieScoreCalculator implements IScoreCalculator {
         return totalScore;
     }
 
+    /**
+     * Handles the criteria that involve complex combinations of addition, subtraction, division, and even/odd checks.
+     *
+     * @param criteria The criteria string.
+     * @param hand The player's hand.
+     * @return The score based on the complex criteria.
+     */
     protected static int handleComplexCriteria(String criteria, ArrayList<ICard> hand) {
         int score = 0;
         String[] criteriaParts = criteria.split(",");

@@ -1,7 +1,6 @@
 package game.logic;
 
 import card.ICard;
-import card.VeggieCard;
 import card.Vegetable;
 
 import java.util.ArrayList;

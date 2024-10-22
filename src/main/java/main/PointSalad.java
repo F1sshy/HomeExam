@@ -9,6 +9,9 @@ import player.IPlayer;
 
 import java.util.ArrayList;
 
+/**
+ * The main class for the PointSalad game.
+ */
 public class PointSalad {
     private ArrayList<IPlayer> players = new ArrayList<>();
     private ArrayList<VeggiePile> veggiePiles;

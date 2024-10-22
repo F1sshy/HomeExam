@@ -1,7 +1,6 @@
 package display;
 
 import card.ICard;
-import card.VeggieCard;
 import pile.VeggiePile;
 import game.logic.CardUtils;
 import card.Vegetable;

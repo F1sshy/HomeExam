@@ -20,6 +20,9 @@ public class VeggieMarket implements IMarket {
         return instance;
     }
 
+    /**
+     * Replaces the market with new cards if any piles are empty.
+     */
     public void replaceMarket() {
         if (veggiePiles == null) return;
         for (VeggiePile p : veggiePiles) {
@@ -51,10 +54,21 @@ public class VeggieMarket implements IMarket {
         }
     }
 
+    /**
+     * Draws a card from the top of the pile.
+     *
+     * @param pile the pile to draw from
+     * @return the card drawn from the pile
+     */
     private ICard drawCardFromTopOfPile(VeggiePile pile) {
         return pile.removeCard(0);
     }
 
+    /**
+     * Draws a card from the bottom of the largest pile.
+     *
+     * @return the card drawn from the pile
+     */
     private ICard drawCardFromBottomOfLargestPile() {
         if (veggiePiles == null) return null;
         int largestPileIndex = -1;
