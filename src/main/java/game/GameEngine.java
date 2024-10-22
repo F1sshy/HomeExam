@@ -10,6 +10,8 @@ import display.Display;
 import market.VeggieMarket;
 import game.bothandler.BotHandler;
 import game.playerhandler.PlayerHandler;
+import player.Player;
+import player.PlayerCommunication;
 
 public class GameEngine implements IGameEngine {
     private ArrayList<IPlayer> players;
@@ -82,10 +84,11 @@ public class GameEngine implements IGameEngine {
             }
         }
         for (IPlayer player : players) {
+            PlayerCommunication communication = player.getCommunication();
             if (player.getPlayerID() == playerID) {
-                player.sendMessage("\nCongratulations! You are the winner with a score of " + maxScore);
+                communication.sendMessage("\nCongratulations! You are the winner with a score of " + maxScore);
             } else {
-                player.sendMessage("\nThe winner is player " + playerID + " with a score of " + maxScore);
+                communication.sendMessage("\nThe winner is player " + playerID + " with a score of " + maxScore);
             }
         }
     }

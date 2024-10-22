@@ -25,16 +25,6 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void sendMessage(String message) {
-        communication.sendMessage(message);
-    }
-
-    @Override
-    public String readMessage() {
-        return communication.readMessage();
-    }
-
-    @Override
     public ArrayList<ICard> getHand() {
         return hand;
     }
@@ -57,5 +47,9 @@ public class Player implements IPlayer {
     @Override
     public boolean isBot() {
         return isBot;
+    }
+
+    public PlayerCommunication getCommunication() {
+        return communication;
     }
 }

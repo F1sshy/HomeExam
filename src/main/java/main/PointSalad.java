@@ -21,6 +21,8 @@ public class PointSalad {
     public PointSalad(String[] args) {
         int numberPlayers = 0;
         int numberOfBots = 0;
+        int maxPlayers = 6;
+        int minPlayers = 2;
 
         this.veggiePiles = veggiePiles;
 
@@ -30,27 +32,31 @@ public class PointSalad {
             numberPlayers = in.nextInt();
             System.out.println("Please enter the number of bots (0-5): ");
             numberOfBots = in.nextInt();
+
+
         } else {
             if (args[0].matches("\\d+")) {
                 numberPlayers = Integer.parseInt(args[0]);
                 numberOfBots = Integer.parseInt(args[1]);
             }
+            if (numberPlayers + numberOfBots > maxPlayers || numberPlayers + numberOfBots < minPlayers) {
+                throw new IllegalArgumentException("Invalid number of players.");
+            }
+
+            try {
+                Server server = new Server(players, 2048);
+                server.server(numberPlayers, numberOfBots);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            GameEngine gameEngine = GameEngine.getInstance(players);
+
+            gameEngine.startGame(args);
+
+
         }
-
-        try {
-            Server server = new Server(players, 2048);
-            server.server(numberPlayers, numberOfBots);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        GameEngine gameEngine = GameEngine.getInstance(players);
-
-        gameEngine.startGame(args);
 
 
     }
-
-
-
 }

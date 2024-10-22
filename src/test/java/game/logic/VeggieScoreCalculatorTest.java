@@ -28,6 +28,10 @@ class VeggieScoreCalculatorTest {
         VeggieCard tomatoCard = new VeggieCard(Vegetable.TOMATO, "Criteria3");
         tomatoCard.setCriteriaSideUp(false);
         hand.add(tomatoCard);
+
+        VeggieCard cabbageCard2 = new VeggieCard(Vegetable.CABBAGE, "Criteria4");
+        cabbageCard2.setCriteriaSideUp(false);
+        hand.add(cabbageCard2);
     }
 
     @Test
@@ -45,7 +49,7 @@ class VeggieScoreCalculatorTest {
 
     @Test
     void testHandleAdditionCriteria() {
-        String criteria = "CARROT CABBAGE + 2 = 4";
+        String criteria = "CARROT + CABBAGE = 4";
         int score = VeggieScoreCalculator.handleAdditionCriteria(criteria, hand);
         assertEquals(4, score); // Assuming 1 CARROT and 1 CABBAGE
     }
