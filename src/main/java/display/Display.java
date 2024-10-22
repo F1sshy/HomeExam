@@ -40,27 +40,35 @@ public class Display implements IDisplay {
      * @return a string representation of the market
      */
     public String displayMarket(ArrayList<VeggiePile> veggiePiles) {
-        String pileString = "Point Cards:\t";
-        for (int p = 0; p< veggiePiles.size(); p++) {
-            if(veggiePiles.get(p).getPointCard()==null) {
-                pileString += "["+p+"]"+String.format("%-43s", "Empty") + "\t";
+        StringBuilder pileString = new StringBuilder("Point Cards:\t");
+        for (int p = 0; p < veggiePiles.size(); p++) {
+            if (veggiePiles.get(p).getPointCard() == null) {
+                pileString.append("[").append(p).append("]").append(String.format("%-43s", "Empty")).append("\t");
+            } else {
+                pileString.append("[").append(p).append("]").append(String.format("%-43s", veggiePiles.get(p).getPointCard())).append("\t");
             }
-            else
-                pileString += "["+p+"]"+String.format("%-43s", veggiePiles.get(p).getPointCard()) + "\t";
         }
-        pileString += "\nVeggie Cards:\t";
+        pileString.append("\nVeggie Cards:\t");
         char veggieCardIndex = 'A';
         for (VeggiePile veggiePile : veggiePiles) {
-            pileString += "["+veggieCardIndex+"]"+String.format("%-43s", veggiePile.getVeggieCard(0)) + "\t";
-            veggieCardIndex+=2;
+            if (veggiePile.getVeggieCard(0) != null) {
+                pileString.append("[").append(veggieCardIndex).append("]").append(String.format("%-43s", veggiePile.getVeggieCard(0))).append("\t");
+            } else {
+                pileString.append("[").append(veggieCardIndex).append("]").append(String.format("%-43s", "Empty")).append("\t");
+            }
+            veggieCardIndex += 2;
         }
-        pileString += "\n\t\t";
+        pileString.append("\n\t\t");
         veggieCardIndex = 'B';
         for (VeggiePile veggiePile : veggiePiles) {
-            pileString += "["+veggieCardIndex+"]"+String.format("%-43s", veggiePile.getVeggieCard(1)) + "\t";
-            veggieCardIndex+=2;
+            if (veggiePile.getVeggieCard(1) != null) {
+                pileString.append("[").append(veggieCardIndex).append("]").append(String.format("%-43s", veggiePile.getVeggieCard(1))).append("\t");
+            } else {
+                pileString.append("[").append(veggieCardIndex).append("]").append(String.format("%-43s", "Empty")).append("\t");
+            }
+            veggieCardIndex += 2;
         }
-        return pileString;
+        return pileString.toString();
     }
 
 }

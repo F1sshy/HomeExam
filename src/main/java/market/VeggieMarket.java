@@ -23,29 +23,31 @@ public class VeggieMarket implements IMarket {
     public void replaceMarket() {
         if (veggiePiles == null) return;
         for (VeggiePile p : veggiePiles) {
-            if (p.isEmpty()) {
-                ICard newVeggieCard = drawCardFromTopOfPile(p);
-                if (newVeggieCard == null) {
-                    newVeggieCard = drawCardFromBottomOfLargestPile();
-                }
-                if (newVeggieCard != null) {
-                    p.addCard(newVeggieCard);
-                }
-            }
             if (p.areAnyVeggieCardsEmpty()) {
                 for (int j = 0; j < p.veggieVeggieCards.length; j++) {
                     if (p.veggieVeggieCards[j] == null) {
-                        ICard newVeggieVeggieCard = drawCardFromTopOfPile(p);
-                        if (newVeggieVeggieCard == null) {
-                            newVeggieVeggieCard = drawCardFromBottomOfLargestPile();
+                        ICard newVeggieCard = drawCardFromTopOfPile(p);
+                        if (newVeggieCard == null) {
+                            newVeggieCard = drawCardFromBottomOfLargestPile();
                         }
-                        if (newVeggieVeggieCard != null) {
-                            p.veggieVeggieCards[j] = newVeggieVeggieCard;
+                        if (newVeggieCard != null) {
+                            p.veggieVeggieCards[j] = newVeggieCard;
                             p.veggieVeggieCards[j].setCriteriaSideUp(false);
                         }
                     }
                 }
             }
+
+            if (p.isEmpty()) {
+                ICard newPointCard = drawCardFromTopOfPile(p);
+                if (newPointCard == null) {
+                    newPointCard = drawCardFromBottomOfLargestPile();
+                }
+                if (newPointCard != null) {
+                    p.addCard(newPointCard);
+                }
+            }
+
         }
     }
 
