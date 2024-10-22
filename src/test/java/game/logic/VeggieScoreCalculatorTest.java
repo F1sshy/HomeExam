@@ -33,13 +33,17 @@ class VeggieScoreCalculatorTest {
         cabbageCard2.setCriteriaSideUp(false);
         hand.add(cabbageCard2);
 
+        VeggieCard cabbageCard3 = new VeggieCard(Vegetable.CABBAGE, "Criteria4");
+        cabbageCard3.setCriteriaSideUp(false);
+        hand.add(cabbageCard3);
+
         VeggieCard criteCard1 = new VeggieCard(Vegetable.TOMATO, "CARROT + CABBAGE = 4");
         hand.add(criteCard1);
 
         VeggieCard criteCard2 = new VeggieCard(Vegetable.TOMATO, " TOMATO: EVEN=10, ODD=5");
         hand.add(criteCard2);
 
-        VeggieCard criteCard3 = new VeggieCard(Vegetable.TOMATO, "3 / CABBAGE, -2 / TOMATO");
+        VeggieCard criteCard3 = new VeggieCard(Vegetable.TOMATO, "2/CABBAGE,  1/CARROT,  -2/TOMATO");
         hand.add(criteCard3);
 
 
@@ -61,7 +65,7 @@ class VeggieScoreCalculatorTest {
 
     @Test
     void testHandleAdditionCriteria() {
-        String criteria = "CARROT + CABBAGE = 4";
+        String criteria = "CARROT + CABBAGE + TOMATO = 4";
         int score = VeggieScoreCalculator.handleAdditionCriteria(criteria, hand);
         assertEquals(4, score); // Assuming 1 CARROT and 1 CABBAGE
     }
@@ -83,6 +87,6 @@ class VeggieScoreCalculatorTest {
     @Test
     void testHandleComplexCriteria() {
         int score = VeggieScoreCalculator.calculateScore(hand, null, null);
-        assertEquals(13, score); // Assuming 1 CARROT, 1 CABBAGE, 1 TOMATO
+        assertEquals(14, score); // Assuming 1 CARROT, 1 CABBAGE, 1 TOMATO
     }
 }

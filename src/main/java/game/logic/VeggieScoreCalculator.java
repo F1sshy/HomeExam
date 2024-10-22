@@ -111,29 +111,40 @@ public class VeggieScoreCalculator implements IScoreCalculator {
     }
 
     protected static int handleAdditionCriteria(String criteria, ArrayList<ICard> hand) {
-        String[] parts = criteria.split("\\+");
-        int scoreToAdd = Integer.parseInt(parts[1].split("=")[1].trim());
-        String[] veggies = parts[0].split(" ");
+        String[] parts = criteria.split("=");
+        if (parts.length < 2) {
+            System.err.println("Invalid criteria format: " + criteria);
+            return 0;
+        }
+
+        int scoreToAdd;
+        try {
+            scoreToAdd = Integer.parseInt(parts[1].trim());
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing score to add: " + parts[1]);
+            return 0;
+        }
+
+        String[] veggies = parts[0].split("\\+");
+        if (veggies.length == 0) {
+            System.err.println("No vegetables specified in criteria: " + parts[0]);
+            return 0;
+        }
+
         int minCount = Integer.MAX_VALUE;
-        boolean sameVegetable = true;
-        String firstVeg = veggies[0].trim();
-
         for (String veg : veggies) {
-            int count = CardUtils.countVegetables(hand, Vegetable.valueOf(veg.trim()));
-            if (count < minCount) {
-                minCount = count;
-            }
-            if (!veg.trim().equals(firstVeg)) {
-                sameVegetable = false;
+            try {
+                int count = CardUtils.countVegetables(hand, Vegetable.valueOf(veg.trim()));
+                if (count < minCount) {
+                    minCount = count;
+                }
+            } catch (IllegalArgumentException e) {
+                System.err.println("Invalid vegetable type: " + veg.trim());
+                return 0;
             }
         }
 
-        int totalScore = scoreToAdd * minCount;
-        if (sameVegetable && veggies.length == 2) {
-            totalScore /= 2;
-        }
-
-        return totalScore;
+        return scoreToAdd * minCount;
     }
 
     protected static int handleDivisionCriteria(String criteria, ArrayList<ICard> hand) {
