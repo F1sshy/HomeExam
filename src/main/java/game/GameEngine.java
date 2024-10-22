@@ -7,13 +7,13 @@ import pile.IPile;
 import java.util.ArrayList;
 import game.logic.VeggiePileSetup;
 import display.Display;
-import market.Market;
+import market.VeggieMarket;
 import game.bothandler.BotHandler;
 import game.playerhandler.PlayerHandler;
 
 public class GameEngine implements IGameEngine {
     private ArrayList<IPlayer> players;
-    private Market market;
+    private VeggieMarket veggieMarket;
     private Display display;
     private static GameEngine instance;
     private PlayerHandler playerHandler;
@@ -36,9 +36,9 @@ public class GameEngine implements IGameEngine {
         VeggiePileSetup veggiePileSetup = new VeggiePileSetup();
         veggiePileSetup.setPiles(players.size());
         ArrayList<VeggiePile> veggiePiles = veggiePileSetup.getPiles();
-        this.market = Market.getInstance(veggiePiles);
-        this.playerHandler = new PlayerHandler(market, display);
-        this.botHandler = new BotHandler(market, players);
+        this.veggieMarket = VeggieMarket.getInstance(veggiePiles);
+        this.playerHandler = new PlayerHandler(veggieMarket, display);
+        this.botHandler = new BotHandler(veggieMarket, players);
         gameLoop();
         calculateAndAnnounceScores();
     }
@@ -50,7 +50,7 @@ public class GameEngine implements IGameEngine {
         while (keepPlaying) {
             thisPlayer = players.get(currentPlayer);
             boolean stillAvailableCards = false;
-            for (IPile p : market.getPiles()) {
+            for (IPile p : veggieMarket.getPiles()) {
                 if (!p.isEmpty() || p.getVeggieCard(0) != null || p.getVeggieCard(1) != null) {
                     stillAvailableCards = true;
                     break;
@@ -60,7 +60,7 @@ public class GameEngine implements IGameEngine {
                 keepPlaying = false;
                 return;
             }
-            market.replaceMarket();
+            veggieMarket.replaceMarket();
             if (!thisPlayer.isBot()) {
                 playerHandler.handlePlayerTurn(thisPlayer);
             } else {

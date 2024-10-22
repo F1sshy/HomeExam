@@ -1,17 +1,17 @@
 package game.playerhandler;
 
 import player.IPlayer;
-import market.Market;
+import market.VeggieMarket;
 import display.Display;
 import card.ICard;
 
 
 public class PlayerHandler {
-    private Market market;
+    private VeggieMarket veggieMarket;
     private Display display;
 
-    public PlayerHandler(Market market, Display display) {
-        this.market = market;
+    public PlayerHandler(VeggieMarket veggieMarket, Display display) {
+        this.veggieMarket = veggieMarket;
         this.display = display;
     }
 
@@ -19,7 +19,7 @@ public class PlayerHandler {
         thisPlayer.sendMessage("\n\n****************************************************************\nIt's your turn! Your hand is:\n");
         thisPlayer.sendMessage(Display.displayHand(thisPlayer.getHand()));
         thisPlayer.sendMessage("\nThe piles are: ");
-        thisPlayer.sendMessage(display.displayMarket(market.getPiles()));
+        thisPlayer.sendMessage(display.displayMarket(veggieMarket.getPiles()));
         boolean validChoice = false;
         while (!validChoice) {
             thisPlayer.sendMessage("\n\nTake either one point card (Syntax example: 2) or up to two vegetable cards (Syntax example: CF).\n");
@@ -57,11 +57,11 @@ public class PlayerHandler {
     private boolean processPlayerChoice(IPlayer thisPlayer, String pileChoice) {
         if (pileChoice.matches("\\d")) {
             int pileIndex = Integer.parseInt(pileChoice);
-            if (pileIndex < 0 || pileIndex >= market.getPiles().size() || market.getPiles().get(pileIndex).getPointCard() == null) {
+            if (pileIndex < 0 || pileIndex >= veggieMarket.getPiles().size() || veggieMarket.getPiles().get(pileIndex).getPointCard() == null) {
                 thisPlayer.sendMessage("\nThis pile is empty or invalid. Please choose another pile.\n");
                 return false;
             } else {
-                thisPlayer.getHand().add(market.getPiles().get(pileIndex).buyPointCard());
+                thisPlayer.getHand().add(veggieMarket.getPiles().get(pileIndex).buyPointCard());
                 thisPlayer.sendMessage("\nYou took a card from pile " + pileIndex + " and added it to your hand.\n");
                 return true;
             }
@@ -79,18 +79,18 @@ public class PlayerHandler {
             int choice = Character.toUpperCase(pileChoice.charAt(charIndex)) - 'A';
             int pileIndex = choice / 2; // Assuming there are 2 veggie cards per pile
             int veggieIndex = choice % 2;
-            if (pileIndex < 0 || pileIndex >= market.getPiles().size() || veggieIndex < 0 || veggieIndex >= 2) {
+            if (pileIndex < 0 || pileIndex >= veggieMarket.getPiles().size() || veggieIndex < 0 || veggieIndex >= 2) {
                 thisPlayer.sendMessage("\nInvalid vegetable card choice. Please choose another pile.\n");
                 return false;
             }
-            if (market.getPiles().get(pileIndex).getVeggieCard(veggieIndex) == null) {
+            if (veggieMarket.getPiles().get(pileIndex).getVeggieCard(veggieIndex) == null) {
                 thisPlayer.sendMessage("\nThis veggie is empty. Please choose another pile.\n");
                 return false;
             } else {
                 if (takenVeggies == 2) {
                     return true;
                 } else {
-                    thisPlayer.getHand().add(market.getPiles().get(pileIndex).buyVeggieCard(veggieIndex));
+                    thisPlayer.getHand().add(veggieMarket.getPiles().get(pileIndex).buyVeggieCard(veggieIndex));
                     takenVeggies++;
                 }
             }

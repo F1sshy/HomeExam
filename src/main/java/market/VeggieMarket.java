@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import card.ICard;
 import pile.VeggiePile;
 
-public class Market implements IMarket {
+public class VeggieMarket implements IMarket {
     private ArrayList<VeggiePile> veggiePiles;
-    private static Market instance;
+    private static VeggieMarket instance;
 
-    public Market(ArrayList<VeggiePile> veggiePiles) {
+    public VeggieMarket(ArrayList<VeggiePile> veggiePiles) {
         this.veggiePiles = (veggiePiles != null) ? veggiePiles : new ArrayList<>();
     }
 
-    public static Market getInstance(ArrayList<VeggiePile> veggiePiles) {
+    public static VeggieMarket getInstance(ArrayList<VeggiePile> veggiePiles) {
         if (instance == null) {
-            instance = new Market(veggiePiles);
+            instance = new VeggieMarket(veggiePiles);
         }
         return instance;
     }

@@ -1,21 +1,19 @@
 package game.bothandler;
 
-import card.VeggieCard;
 import player.IPlayer;
-import market.Market;
+import market.VeggieMarket;
 import game.logic.VeggieScoreCalculator;
 import card.ICard;
 import pile.IPile;
-import display.Display;
 
 import java.util.ArrayList;
 
 public class BotHandler {
-    private Market market;
+    private VeggieMarket veggieMarket;
     private ArrayList<IPlayer> players;
 
-    public BotHandler(Market market, ArrayList<IPlayer> players) {
-        this.market = market;
+    public BotHandler(VeggieMarket veggieMarket, ArrayList<IPlayer> players) {
+        this.veggieMarket = veggieMarket;
         this.players = players;
     }
 
@@ -33,11 +31,11 @@ public class BotHandler {
     private boolean takeBestPointCard(IPlayer thisPlayer) {
         int highestPointCardIndex = 0;
         int highestPointCardScore = 0;
-        for (int i = 0; i < market.getPiles().size(); i++) {
-            if (market.getPiles().get(i).getPointCard() != null) {
+        for (int i = 0; i < veggieMarket.getPiles().size(); i++) {
+            if (veggieMarket.getPiles().get(i).getPointCard() != null) {
                 ArrayList<ICard> tempHand = new ArrayList<>();
                 tempHand.addAll(thisPlayer.getHand());
-                tempHand.add(market.getPiles().get(i).getPointCard());
+                tempHand.add(veggieMarket.getPiles().get(i).getPointCard());
                 int score = VeggieScoreCalculator.calculateScore(tempHand, thisPlayer, players);
                 if (score > highestPointCardScore) {
                     highestPointCardScore = score;
@@ -45,8 +43,8 @@ public class BotHandler {
                 }
             }
         }
-        if (market.getPiles().get(highestPointCardIndex).getPointCard() != null) {
-            thisPlayer.getHand().add(market.getPiles().get(highestPointCardIndex).buyPointCard());
+        if (veggieMarket.getPiles().get(highestPointCardIndex).getPointCard() != null) {
+            thisPlayer.getHand().add(veggieMarket.getPiles().get(highestPointCardIndex).buyPointCard());
             return true;
         }
         return false;
@@ -54,7 +52,7 @@ public class BotHandler {
 
     private void takeVegetableCards(IPlayer thisPlayer) {
         int cardsPicked = 0;
-        for (IPile pile : market.getPiles()) {
+        for (IPile pile : veggieMarket.getPiles()) {
             if (pile.getVeggieCard(0) != null && cardsPicked < 2) {
                 thisPlayer.getHand().add(pile.buyVeggieCard(0));
                 cardsPicked++;
