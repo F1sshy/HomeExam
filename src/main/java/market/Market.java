@@ -1,18 +1,14 @@
 package market;
 
 import java.util.ArrayList;
-import card.VeggieCard;
+
+import card.ICard;
 import pile.VeggiePile;
 
 public class Market implements IMarket {
     private ArrayList<VeggiePile> veggiePiles;
     private static Market instance;
 
-    /**
-     * Gets the size of the pile.
-     *
-     * @return the number of cards in the pile
-     */
     public Market(ArrayList<VeggiePile> veggiePiles) {
         this.veggiePiles = (veggiePiles != null) ? veggiePiles : new ArrayList<>();
     }
@@ -24,15 +20,14 @@ public class Market implements IMarket {
         return instance;
     }
 
-    /**
-     * Replaces empty piles and empty veggie cards in the market with new cards.
-     */
     public void replaceMarket() {
         if (veggiePiles == null) return;
-        for (int i = 0; i < veggiePiles.size(); i++) {
-            VeggiePile p = veggiePiles.get(i);
+        for (VeggiePile p : veggiePiles) {
             if (p.isEmpty()) {
-                VeggieCard newVeggieCard = drawCardFromLargestPile();
+                ICard newVeggieCard = drawCardFromTopOfPile(p);
+                if (newVeggieCard == null) {
+                    newVeggieCard = drawCardFromBottomOfLargestPile();
+                }
                 if (newVeggieCard != null) {
                     p.addCard(newVeggieCard);
                 }
@@ -40,10 +35,13 @@ public class Market implements IMarket {
             if (p.areAnyVeggieCardsEmpty()) {
                 for (int j = 0; j < p.veggieVeggieCards.length; j++) {
                     if (p.veggieVeggieCards[j] == null) {
-                        VeggieCard newVeggieVeggieCard = drawCardFromLargestPile();
+                        ICard newVeggieVeggieCard = drawCardFromTopOfPile(p);
+                        if (newVeggieVeggieCard == null) {
+                            newVeggieVeggieCard = drawCardFromBottomOfLargestPile();
+                        }
                         if (newVeggieVeggieCard != null) {
                             p.veggieVeggieCards[j] = newVeggieVeggieCard;
-                            p.veggieVeggieCards[j].criteriaSideUp = false;
+                            p.veggieVeggieCards[j].setCriteriaSideUp(false);
                         }
                     }
                 }
@@ -51,12 +49,11 @@ public class Market implements IMarket {
         }
     }
 
-    /**
-     * Draws a card from the largest pile in the market.
-     *
-     * @return the drawn card, or null if no card can be drawn
-     */
-    private VeggieCard drawCardFromLargestPile() {
+    private ICard drawCardFromTopOfPile(VeggiePile pile) {
+        return pile.removeCard(0);
+    }
+
+    private ICard drawCardFromBottomOfLargestPile() {
         if (veggiePiles == null) return null;
         int largestPileIndex = -1;
         int largestSize = 0;
@@ -69,17 +66,12 @@ public class Market implements IMarket {
         }
 
         if (largestPileIndex != -1 && largestSize > 0) {
-            return veggiePiles.get(largestPileIndex).removeCard();
+            return veggiePiles.get(largestPileIndex).removeCard(veggiePiles.get(largestPileIndex).size() - 1);
         }
 
         return null;
     }
 
-    /**
-     * Gets the list of piles in the market.
-     *
-     * @return the list of piles
-     */
     public ArrayList<VeggiePile> getPiles() {
         return veggiePiles;
     }

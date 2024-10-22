@@ -1,14 +1,15 @@
 
 package pile;
 
+import card.ICard;
 import card.VeggieCard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 
 public class VeggiePile implements IPile {
-    public ArrayList<VeggieCard> veggieCards = new ArrayList<>();
-    public VeggieCard[] veggieVeggieCards = new VeggieCard[2];
+    public ArrayList<ICard> veggieCards = new ArrayList<>();
+    public ICard[] veggieVeggieCards = new VeggieCard[2];
     private Logger logger = LogManager.getLogger();
 
     /**
@@ -22,12 +23,12 @@ public class VeggiePile implements IPile {
      *
      * @param veggieCards the list of cards to initialize the pile with
      */
-    public VeggiePile(ArrayList<VeggieCard> veggieCards) {
+    public VeggiePile(ArrayList<ICard> veggieCards) {
         this.veggieCards = veggieCards;
         this.veggieVeggieCards[0] = veggieCards.remove(0);
         this.veggieVeggieCards[1] = veggieCards.remove(0);
-        this.veggieVeggieCards[0].criteriaSideUp = false;
-        this.veggieVeggieCards[1].criteriaSideUp = false;
+        this.veggieVeggieCards[0].setCriteriaSideUp(false);
+        this.veggieVeggieCards[1].setCriteriaSideUp(false);
     }
 
     /**
@@ -35,7 +36,7 @@ public class VeggiePile implements IPile {
      *
      * @return the point card, or null if the pile is empty
      */
-    public VeggieCard getPointCard() {
+    public ICard getPointCard() {
         if (veggieCards.isEmpty()) {
             return null;
         }
@@ -47,7 +48,7 @@ public class VeggiePile implements IPile {
      *
      * @return the bought point card, or null if the pile is empty
      */
-    public VeggieCard buyPointCard() {
+    public ICard buyPointCard() {
         if (veggieCards.isEmpty()) {
             return null;
         }
@@ -78,7 +79,7 @@ public class VeggiePile implements IPile {
      * @param index the index of the veggie card to get
      * @return the veggie card at the specified index
      */
-    public VeggieCard getVeggieCard(int index) {
+    public ICard getVeggieCard(int index) {
         return veggieVeggieCards[index];
     }
 
@@ -88,11 +89,11 @@ public class VeggiePile implements IPile {
      * @param index the index of the veggie card to buy
      * @return the bought veggie card
      */
-    public VeggieCard buyVeggieCard(int index) {
-        VeggieCard aVeggieCard = veggieVeggieCards[index];
+    public ICard buyVeggieCard(int index) {
+        ICard aVeggieCard = veggieVeggieCards[index];
         if (veggieCards.size() > 0) {
             veggieVeggieCards[index] = veggieCards.remove(0);
-            veggieVeggieCards[index].criteriaSideUp = false;
+            veggieVeggieCards[index].setCriteriaSideUp(false);
         } else {
             veggieVeggieCards[index] = null;
         }
@@ -104,7 +105,7 @@ public class VeggiePile implements IPile {
      *
      * @param newVeggieCard the card to be added
      */
-    public void addCard(VeggieCard newVeggieCard) {
+    public void addCard(ICard newVeggieCard) {
         veggieCards.add(newVeggieCard);
     }
 
@@ -113,9 +114,9 @@ public class VeggiePile implements IPile {
      *
      * @return the removed card, or null if the pile is empty
      */
-    public VeggieCard removeCard() {
+    public ICard removeCard(int index) {
         if (!veggieCards.isEmpty()) {
-            return veggieCards.remove(0);
+            return veggieCards.remove(index);
         }
         return null;
     }

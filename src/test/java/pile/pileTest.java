@@ -1,5 +1,6 @@
 package pile;
 
+import card.ICard;
 import card.VeggieCard;
 import card.Vegetable;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ class pileTest {
         veggieCard1 = new VeggieCard(Vegetable.CARROT, "Criteria1");
         veggieCard2 = new VeggieCard(Vegetable.CABBAGE, "Criteria2");
         veggieCard3 = new VeggieCard(Vegetable.TOMATO, "Criteria3");
-        ArrayList<VeggieCard> veggieCards = new ArrayList<>();
+        ArrayList<ICard> veggieCards = new ArrayList<>();
         veggieCards.add(veggieCard1);
         veggieCards.add(veggieCard2);
         veggieCards.add(veggieCard3);
@@ -100,7 +101,7 @@ class pileTest {
 
     @Test
     void removeCard() {
-        var card = testVeggiePile.removeCard();
+        var card = testVeggiePile.removeCard(0);
         assertNotSame(card, testVeggiePile.getPointCard());
     }
 
